@@ -1,6 +1,5 @@
 <template>
   <div class=" mt-4">
-    <b-container>
       <b-row class="align-items-center justify-content-center">
         <div class=" col-md-12 col-xl-12 col-lg-9 text-dark">
           <b-container class="mt-4 mb-4 text-danger h5">
@@ -68,10 +67,6 @@
           </b-container>
         </div>
       </b-row>
-    </b-container>
-
-
-
   </div>
 </template>
 <script>
