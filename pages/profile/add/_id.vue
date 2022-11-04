@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <b-row class="myIndex">
+    <b-row class="myIndex justify-content-center">
       <b-container fluid v-if="loader" class="mt-4 mb-4">
             <b-row>
               <b-card class="col-md-12" height="100">
@@ -10,7 +10,8 @@
               </b-card>
             </b-row>
       </b-container>
-      <b-card v-else bg-variant="white" class="col-md-12 shadow">
+      <b-container fluid v-else class="col-md-9 justify-content-center">
+      <b-card class="shadow" bg-variant="white">
         <b-row class="mt-1 mb-1">
               <b-col lg="3">
                 <h6>Contact</h6>
@@ -89,9 +90,9 @@
           </b-col>
         </b-row>
       </b-card>
+    </b-container>
     </b-row>
-
-    <b-container fluid class=" mt-4 mb-4 col-md-12">
+    <b-container class=" mt-4 mb-4 col-md-9">
       <b-button-group class="d-flex align-items-center justify-content-sm-end">
         <b-button @click="submitForm" class="btn-info text-white col-md-4 mx-2 shadow">
           Enregistrer
