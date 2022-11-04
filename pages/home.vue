@@ -4,7 +4,7 @@
    <b-row class="align-items-center justify-content-center">
      <b-col class="mt-4 col-md-12 col-xl-12 d-flex" style="justify-content: space-between;
             padding-top:15px">
-         <div class="shadow">
+         <div class="shadow col-md-12 col-xl-12 col-sm-12">
            <b-card style=" height:100px">
            <b-container class=" text-info d-flex align-items-center text-info"
            style="font-size:36pt; justify-content: space-between;">
