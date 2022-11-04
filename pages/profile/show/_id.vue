@@ -135,9 +135,8 @@
     },
     created() {
       this.init()
-      this.getProfile()
       this.getContact()
-
+      this.getProfile()
     },
     methods: {
       init() {
@@ -159,6 +158,7 @@
           }).then((response) => {
             console.log(response)
             this.profile = response.data
+            this.vCard()
           }).catch((error) => {
             console.log(error)
             this.info = 'vous êtes hors-connexion'
@@ -167,7 +167,7 @@
           })
       },
 
-      getContact() {
+       getContact() {
         this.$axios.get(`contact/contactDetail/${this.contactId}`, {
             headers: {
               'Content-Type': 'application/json',
@@ -179,8 +179,6 @@
           }).then((response) => {
             console.log(response)
             this.contact = response.data
-            console.log('name is :' + this.contact.name)
-            this.vCard()
 
           }).catch((error) => {
             console.log(error)
@@ -190,7 +188,8 @@
           })
       },
 
-      vCard() {
+       vCard() {
+        console.log(this.profile.phoneNumberWork);
         this.vcard = "BEGIN:VCARD" + "\n" +
           "VERSION:3.0" + "\n" +
           "FN:" + this.contact.firstName + " " + this.contact.name + " " + this.contact.lastName + "\n" +
