@@ -10,7 +10,7 @@
            style="font-size:36pt; justify-content: space-between;">
            <b-icon icon="people-fill" variant="info" width="60" height="60"></b-icon>
            <h2>Contacts enregistrés</h2>
-           <nuxt-link class="text-decoration-none" to="/contactList">
+           <nuxt-link class="text-decoration-none" :to="{name: 'contact-listContact'}">
            <b-spinner v-if="loader" label="large spinner" variant="info"></b-spinner>
            <b-badge v-else variant="info" pill>
              {{contactNbr}}

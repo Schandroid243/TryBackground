@@ -16,7 +16,7 @@
           </b-navbar-brand>
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <b-collapse id="nav-collapse" is-nav>
-              <b-navbar-nav class="ml-auto align-items-center justify-content-center shadow">
+              <b-navbar-nav class="ml-auto align-items-center justify-content-center">
                 <b-nav-item-dropdown right class="px-4">
                   <template #button-content>
                     <img src="~/assets/profile.jpeg" height="30px" width="30px" style="border-radius:100%">
@@ -118,11 +118,11 @@
     },
     created() {
       this.init()
-      //this.getUsers()
+      this.getUsers()
       window.onpopstate = event => {
       if (
         window.localStorage.getItem("info") !== null &&
-        this.$route.path == "/login"
+        this.$route.path == "/"
       ) {
         this.$router.push({name: 'home'}); // redirect to home, for example
       }
@@ -158,31 +158,31 @@
       },
 
       init() {
-        //this.token = this.$auth.strategy.token.get()
+        this.token = this.$auth.strategy.token.get()
       },
       contact() {
-        this.$router.push({name:'index'})
+        this.$router.push({name:'contact-listContact'})
       },
       home() {
         this.$router.push({name:'home'})
       },
       utilisateur() {
-        this.$router.push({name:'listUser'})
+        this.$router.push({name:'user-listUser'})
       },
-      // getUsers() {
-      //       this.$axios.get('auth/userDetails', {
-      //         headers: {
-      //           'Content-Type': 'application/json',
-      //           'Access-Control-Allow-Origin': '*',
-      //           'x-access-token': this.token},
-      //       }, {withCredentials: true}).then((response) => {
-      //         console.log(response)
-      //         console.log(this.currentUser)
-      //         return this.currentUser = response.data.email
-      //       }).catch((error) => {
-      //         console.log(error)
-      //       })
-      //     },
+      getUsers() {
+            this.$axios.get('auth/userDetails', {
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'x-access-token': this.token},
+            }, {withCredentials: true}).then((response) => {
+              console.log(response)
+              console.log(this.currentUser)
+              return this.currentUser = response.data.email
+            }).catch((error) => {
+              console.log(error)
+            })
+          },
       logOut() {
         this.$auth.logout()
         this.$router.replace({
