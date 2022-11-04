@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-gray-400">
+  <div class="fond">
   <b-container fluid class=" justify-content-center align-items-center">
-    <b-row class="min-vh-100">
+    <b-row class=" min-vh-100 ">
       <nuxt />
     </b-row>
   </b-container>
@@ -12,3 +12,6 @@ export default {
   name: 'authentification'
 }
 </script>
+<style lang="css">
+
+</style>

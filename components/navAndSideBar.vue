@@ -39,18 +39,24 @@
     <div id="mySidenav" class="sidenav">
       <div style="padding-top:40px"></div>
           <b-nav pills class="">
-                <b-nav-item @click="contact" class=" mt-2 mb-2 ">
-                  <nuxt-link to="contactList" class="d-flex text-decoration-none text-white">
-                    <b-icon icon="people-fill" variant="white" width="22px" height="22px"></b-icon>
-                    <h5 class="px-3 text-white">Add User</h5>
-                  </nuxt-link>
-                </b-nav-item>
-                <b-nav-item @click="utilisateur" class="mt-2 mb-2 ">
-                  <nuxt-link to="userList" class="d-flex text-decoration-none text-white">
-                    <b-icon icon="bag-fill" variant="white" width="22px" height="22px"></b-icon>
-                    <h5 class="px-3 text-white">Users</h5>
-                  </nuxt-link>
-                </b-nav-item>
+            <b-nav-item  class=" mt-2 mb-2">
+                    <nuxt-link to="/home" class=" d-flex text-decoration-none text-white">
+                      <b-icon icon="grid-fill" variant="white" width="22px" height="22px"></b-icon>
+                      <h5 class="px-3 text-white">Bureau</h5>
+                    </nuxt-link>
+                  </b-nav-item>
+                  <b-nav-item @click="contact" class=" mt-2 mb-2 ">
+                    <nuxt-link to="contactList" class="d-flex text-decoration-none text-white">
+                      <b-icon icon="people-fill" variant="white" width="22px" height="22px"></b-icon>
+                      <h5 class="px-3 text-white">Contact</h5>
+                    </nuxt-link>
+                  </b-nav-item>
+                  <b-nav-item @click="utilisateur" class="mt-2 mb-2 ">
+                    <nuxt-link to="userList" class="d-flex text-decoration-none text-white">
+                      <b-icon icon="bag-fill" variant="white" width="22px" height="22px"></b-icon>
+                      <h5 class="px-3 text-white">Utilisateur</h5>
+                    </nuxt-link>
+                  </b-nav-item>
           </b-nav>
         </div>
   </div>
@@ -113,6 +119,21 @@
     created() {
       this.init()
       //this.getUsers()
+      window.onpopstate = event => {
+      if (
+        window.localStorage.getItem("info") !== null &&
+        this.$route.path == "/login"
+      ) {
+        this.$router.push({name: 'home'}); // redirect to home, for example
+      }
+
+      if (
+        window.localStorage.getItem("info") !== null &&
+        this.$route.path == "/home"
+      ) {
+        this.$router.push({name: 'home'}); // redirect to home, for example
+      }
+    };
     },
 
     methods: {
@@ -123,24 +144,27 @@
         this.openNav()
       }
     },
-   openNav() {
+    openNav() {
     this.isOpen = true;
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-},
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+      },
 
-/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-  closeNav() {
-    this.isOpen = false
-  document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("main").style.marginLeft = "0";
-},
+      /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+      closeNav() {
+          this.isOpen = false
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+      },
 
       init() {
         //this.token = this.$auth.strategy.token.get()
       },
       contact() {
         this.$router.push({name:'index'})
+      },
+      home() {
+        this.$router.push({name:'home'})
       },
       utilisateur() {
         this.$router.push({name:'listUser'})
@@ -161,8 +185,8 @@
       //     },
       logOut() {
         this.$auth.logout()
-        this.$router.push({
-          path: '/'
+        this.$router.replace({
+          path: '/login'
         })
       },
 
