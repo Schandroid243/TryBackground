@@ -4,8 +4,8 @@
    <b-row class="align-items-center justify-content-center">
      <b-col class="mt-4 col-md-12 col-xl-12 d-flex" style="justify-content: space-between;
             padding-top:15px">
-         <div class="shadow col-md-12 col-xl-12 col-sm-12">
-           <b-card style=" height:100px">
+         <div>
+           <b-card class="shadow col-md-12 col-xl-12 col-sm-12" style=" height:100px">
            <b-container class=" text-info d-flex align-items-center text-info"
            style="font-size:36pt; justify-content: space-between;">
            <b-icon icon="people-fill" variant="info" width="60" height="60"></b-icon>
@@ -20,7 +20,7 @@
 
            </b-card>
              <b-carousel id="carousel-fade"
-             class="text-center"
+             class="text-center col-md-12 col-xl-12 col-sm-12"
                style="text-shadow: 0px 0px 2px #000;"
                fade indicators
                img-width="400"
