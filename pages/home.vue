@@ -5,7 +5,7 @@
      <b-col class="mt-4 col-md-12 col-xl-12 d-flex" style="justify-content: space-between;
             padding-top:15px">
 
-            <b-row>
+        <div class="shadow col-md-12 col-xl-12 col-sm-12">
               <b-card class="shadow col-md-12 col-xl-12 col-sm-12" style=" height:100px">
                 <b-container class=" text-info d-flex align-items-center text-info"
                 style="font-size:36pt; justify-content: space-between;">
@@ -19,9 +19,6 @@
                   </nuxt-link>
                 </b-container>
               </b-card>
-            </b-row>
-            <b-row class="align-items-center justify-content-center">
-              <div class="col-md-12 col-xl-12 col-sm-12" style=" height:800px">
                 <b-carousel id="carousel-fade"
                 class="text-center"
                   style="text-shadow: 0px 0px 2px #000;"
@@ -48,7 +45,6 @@
                 </b-carousel-slide>
               </b-carousel>
               </div>
-            </b-row>
 
      </b-col>
    </b-row>
