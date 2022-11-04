@@ -37,12 +37,47 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: 'https://daurecard-api.herokuapp.com/api/v1/',
+  },
+
+  auth: {
+    redirect: {
+     login: '/',
+     logout: '/',
+     callback: false,
+     home: '/home'
+    },
+    strategies: {
+
+      local: {
+        sheme: 'refresh',
+        token: {
+          prefix: '_token.',
+          property: 'token',
+          maxAge: 60 * 60 * 24,
+          global: true,
+          name: 'x-access-token',
+           type: ''
+        },
+        refreshToken: {
+          property: "data.response.refreshToken",
+          data: "refreshToken",
+          maxAge: 60 * 60 * 24
+        },
+        endpoints: {
+          login: { url: 'auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: 'auth/logout', method: 'get' },
+          refresh: { url: 'auth/refreshToken', method: 'post'},
+          user: { url: 'auth/userDetails', method: 'get'}
+        },
+      }
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

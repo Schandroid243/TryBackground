@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-gray-400">
+  <div>
   <b-container>
-    <b-row class="d-flex justify-content-center rowTitle">
-      <h3>Create a User</h3>
+    <b-row class="d-flex justify-content-center myIndex">
+      <h3 class="txtColor">Create a User</h3>
     </b-row>
     <b-row align-h="center">
       <b-col cols="12" md="9">
@@ -61,6 +61,11 @@
   </b-container>
   </div>
 </template>
+<script>
+export default {
+  layout: 'default',
+}
+</script>
 <style>
 
 </style>
