@@ -1,8 +1,7 @@
 <template>
   <div class="mt-4" style="padding-top:15px">
-    <b-container>
       <b-row class="align-items-center justify-content-center">
-        <div class=" col-md-12 col-xl-9 col-lg-9 text-dark">
+        <div class=" col-md-9 col-xl-9 col-lg-9 text-dark">
           <b-container class="mt-4 mb-4">
             <h3 class="text-white">Editez contact</h3>
           </b-container>
@@ -45,7 +44,6 @@
           </b-container>
         </div>
       </b-row>
-    </b-container>
   </div>
 </template>
 

@@ -3,7 +3,6 @@
     <b-container class=" mt-4 col-md-12 col-xl-12 col-sm-8">
       <h5 class="text-danger"> <em>{{info}}</em> </h5>
       <b-row>
-        <b-container>
           <b-col v-if="loader" class="mt-4 mb-4">
           <b-row>
             <b-card class="col-md-12" style="height:100%">
@@ -82,7 +81,6 @@
             </b-row>
           </b-card-body>
         </b-card>
-        </b-container>
 
       </b-row>
 

@@ -5,7 +5,7 @@
           </b-container>
     <b-container fluid v-if="loader" class="mt-4 mb-4">
       <b-row class="align-items-center justify-content-center">
-        <b-card class="col-md-12 col-xl-9" height="100">
+        <b-card class="col-md-9 col-xl-9" height="100">
           <b-skeleton animation="throb" width="85%"></b-skeleton>
           <b-skeleton animation="throb" width="55%"></b-skeleton>
           <b-skeleton animation="throb" width="70%"></b-skeleton>

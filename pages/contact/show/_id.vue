@@ -1,8 +1,7 @@
 <template>
   <div class=" mt-4" style="padding-top: 15px ">
-    <b-container>
       <b-row class="align-items-center justify-content-center">
-        <b-col class=" col-md-12 col-xl-12 col-lg-12">
+        <b-col class=" col-md-9 col-xl-12 col-lg-12">
         <b-container class="mt-4 mb-4 text-danger h5">
           <!-- <h5 class="text-danger"> <em>{{info}}</em> </h5> -->
         </b-container>
@@ -51,19 +50,12 @@
             </div>
               </b-card>
             </div>
-
-
-
-
           </b-row>
           </b-col>
           </b-row>
-
-
         </b-container>
        </b-col>
       </b-row>
-    </b-container>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
-  <b-container>
-    <b-row>
+  <b-container fluid>
+    <b-row class="myIndex">
       <b-container fluid v-if="loader" class="mt-4 mb-4">
             <b-row>
               <b-card class="col-md-12" height="100">
