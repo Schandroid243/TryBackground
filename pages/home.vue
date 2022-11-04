@@ -20,7 +20,7 @@
            </b-container>
 
            </b-card>
-           <div>
+           <div class="col-md-12 col-xl-12 col-sm-12" style=" height:400px">
              <b-carousel id="carousel-fade"
              class="text-center"
                style="text-shadow: 0px 0px 2px #000;"
