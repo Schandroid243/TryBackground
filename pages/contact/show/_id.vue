@@ -24,11 +24,13 @@
             </b-card>
           </b-row>
           <b-row v-else class="d-flex col-md-12" style="justify-content:space-around" >
-            <div class="col-md-4 mt-1 shadow " v-for="(profile, i) in listProfile" :key="i">
-              <b-card
-            style=" width:100%; height:150px">
-            <div class="d-flex justify-content-center">
-              <img src="~/assets/profile.jpeg" style="padding-top:13px; width:30%; height:100%">
+            <div class="col-md-4 mt-1" v-for="(profile, i) in listProfile" :key="i">
+            <b-card
+            class="shadow "
+            style=" width:100%; height:230px">
+            <b-container class="align-items-center mt-4">
+            <b-row class="d-flex justify-content-center">
+              <img src="~/assets/profile.jpeg" style="width:30%; height:100%">
               <div>
                 <h5 class="text-dark mt-2 mb-2"> {{profile.organization}} </h5>
                 <h6 class="text-danger mt-2 mb-2"> {{profile.title}} </h6>
@@ -47,7 +49,8 @@
                   </nuxt-link>
                 </b-container>
               </div>
-            </div>
+            </b-row>
+            </b-container>
               </b-card>
             </div>
           </b-row>
