@@ -20,7 +20,7 @@
 
            </b-card>
              <b-carousel id="carousel-fade"
-             class="text-center col-md-12 col-xl-12 col-sm-12"
+             class="text-center"
                style="text-shadow: 0px 0px 2px #000;"
                fade indicators
                img-width="400"
