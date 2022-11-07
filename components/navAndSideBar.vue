@@ -124,14 +124,14 @@
         window.localStorage.getItem("info") !== null &&
         this.$route.path == "/"
       ) {
-        this.$router.push({name: 'home'}); // redirect to home, for example
+        this.$router.push({name: 'home'});
       }
 
       if (
         window.localStorage.getItem("info") !== null &&
         this.$route.path == "/home"
       ) {
-        this.$router.push({name: 'home'}); // redirect to home, for example
+        this.$router.push({name: 'home'});
       }
     };
     },
@@ -146,11 +146,17 @@
     },
     openNav() {
     this.isOpen = true;
-        document.getElementById("mySidenav").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
+    var mySidenav = document.getElementById("mySidenav");
+    var main = document.getElementById("main");
+      if (window.screen.width <= 450 ) {
+        mySidenav.style.width = "250px";
+        mySidenav.style.zIndex = 1000;
+        main.style.marginLeft = "-250px";
+      } else {
+        mySidenav.style.width = "250px";
+        main.style.marginLeft = "250px";
+      }
       },
-
-      /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
       closeNav() {
           this.isOpen = false
         document.getElementById("mySidenav").style.width = "0";

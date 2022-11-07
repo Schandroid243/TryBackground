@@ -62,6 +62,12 @@ export default {
     this.getUsers()
 
   },
+  mounted () {
+    this.init()
+    this.getUserDetail()
+    this.getUsers()
+  },
+
   methods: {
     init() {
       this.token = this.$auth.strategy.token.get()

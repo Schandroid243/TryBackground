@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container class=" mt-4 col-md-12 col-xl-12 col-sm-8">
+    <b-container class=" mt-4 col-md-12 col-xl-12 col-sm-12 p-0">
       <h5 class="text-danger"> <em>{{info}}</em> </h5>
       <b-row>
           <b-col v-if="loader" class="mt-4 mb-4">
@@ -13,72 +13,76 @@
           </b-row>
         </b-col>
 
-        <b-card v-else class="col-md-12 shadow">
-          <b-card-header class="d-flex bg-white" style="justify-content:space-between">
-            <h4>Informations du profil</h4>
+        <b-card v-else class="col-md-12 shadow p-0">
+          <b-card-header class="d-flex bg-white p-1" style="justify-content:space-between">
+            <h4>Profil</h4>
             <b-button @click="cancel" class="btn-info">
               <b-icon class="mx-2" icon="arrow-left"></b-icon>retour
             </b-button>
           </b-card-header>
           <b-card-body>
-            <b-row class="justify-content-center">
-              <b-col cols="8" class="col-md-8 col-sm-6 col-xl-8">
-                <div class="">
-                  <b-container class="mt-2 mb-2">
-                    <label>Prénom :</label>
-                    <em class="contact h5">{{contact.firstName}}</em>
+            <b-container class="p-0 col-md-12">
+              <b-row>
+                <b-col class="col-md-9 col-sm-12 col-xl-9">
+                  <div class="">
+                    <b-container class="mt-2 mb-2 p-0">
+                      <label>Prénom :</label>
+                      <em class="contact h5">{{contact.firstName}}</em>
+                    </b-container>
+                    <b-container class="mt-2 mb-2 p-0">
+                      <label>Nom :</label>
+                      <em class="h5">{{contact.name}}</em>
+                    </b-container>
+                    <b-container class="mt-2 mb-2 p-0">
+                      <label>Post-Nom :</label>
+                      <em class="h5">{{contact.lastName}}</em>
+                    </b-container>
+                    <b-container class="mt-2 mb-2 p-0">
+                      <label>Organisation :</label>
+                      <em class="h5">{{profile.organization}}</em>
+                    </b-container>
+                    <b-container class="mt-2 mb-2 p-0">
+                      <label>Titre :</label>
+                      <em class="h5">{{profile.title}}</em>
+                    </b-container>
+                    <b-container class="mt-2 mb-2 p-0">
+                      <label>Tél. Bureau :</label>
+                      <em class="h5">{{profile.phoneNumberWork}}</em>
+                    </b-container>
+                    <b-container class="mt-2 mb-2 p-0">
+                      <label>Tél. Domicile :</label>
+                      <em class="h5">{{profile.phoneNumberHome}}</em>
+                    </b-container>
+                    <b-container class="mt-2 mb-2 p-0">
+                      <label>Email :</label>
+                      <em class="h5">{{profile.email}}</em>
+                    </b-container>
+                    <b-container class="mt-2 mb-2 p-0">
+                      <label>Website :</label>
+                      <em class="h5">{{profile.website}}</em>
+                    </b-container>
+                    <b-container class="mt-2 mb-2 p-0">
+                      <label>Adresse :</label>
+                      <em class="h5">{{profile.adress}}</em>
+                    </b-container>
+                  </div>
+                </b-col>
+                <b-col class="col-md-3 col-sm-12 col-xl-3">
+                  <div id="contact">
+                    <vue-qr :text="vcard" :size="200">
+                    </vue-qr>
+                  </div>
+                  <b-container>
+                    <b-button @click="shot" class="btn-info" style="width:150px; height:auto">
+                      <b-icon icon="download"></b-icon>
+                    </b-button>
                   </b-container>
-                  <b-container class="mt-2 mb-2">
-                    <label>Nom :</label>
-                    <em class="h5">{{contact.name}}</em>
-                  </b-container>
-                  <b-container class="mt-2 mb-2">
-                    <label>Post-Nom :</label>
-                    <em class="h5">{{contact.lastName}}</em>
-                  </b-container>
-                  <b-container class="mt-2 mb-2">
-                    <label>Organisation :</label>
-                    <em class="h5">{{profile.organization}}</em>
-                  </b-container>
-                  <b-container class="mt-2 mb-2">
-                    <label>Titre :</label>
-                    <em class="h5">{{profile.title}}</em>
-                  </b-container>
-                  <b-container class="mt-2 mb-2">
-                    <label>Tél. Bureau :</label>
-                    <em class="h5">{{profile.phoneNumberWork}}</em>
-                  </b-container>
-                  <b-container class="mt-2 mb-2">
-                    <label>Tél. Domicile :</label>
-                    <em class="h5">{{profile.phoneNumberHome}}</em>
-                  </b-container>
-                  <b-container class="mt-2 mb-2">
-                    <label>Email :</label>
-                    <em class="h5">{{profile.email}}</em>
-                  </b-container>
-                  <b-container class="mt-2 mb-2">
-                    <label>Website :</label>
-                    <em class="h5">{{profile.website}}</em>
-                  </b-container>
-                  <b-container class="mt-2 mb-2">
-                    <label>Adresse :</label>
-                    <em class="h5">{{profile.adress}}</em>
-                  </b-container>
-                </div>
-              </b-col>
-              <b-col cols="4" class="col-md-4 col-sm-4 col-xl-4">
-                <div id="contact">
-                  <vue-qr :text="vcard" :size="250">
-                  </vue-qr>
-                </div>
-                <b-container>
-                  <b-button @click="shot" class="btn-info" style="width:150px; height:auto">
-                    <b-icon icon="download"></b-icon>
-                  </b-button>
-                </b-container>
+                </b-col>
+                </b-row>
+                <b-row>
+              </b-row>
+            </b-container>
 
-              </b-col>
-            </b-row>
           </b-card-body>
         </b-card>
 

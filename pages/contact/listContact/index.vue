@@ -92,7 +92,11 @@
       }
     },
 
-    async mounted() {
+    mounted() {
+      this.init()
+      this.getContacts()
+    },
+    created() {
       this.init()
       this.getContacts()
     },

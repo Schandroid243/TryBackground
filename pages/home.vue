@@ -1,16 +1,16 @@
 <template>
   <div>
-   <b-container fluid class="mt-4">
+   <b-container fluid class="mt-4 p-0">
    <b-row class="align-items-center justify-content-center">
-     <b-col class="mt-4 col-md-12 col-xl-12 d-flex" style="justify-content: space-between;
+     <b-col class="mt-4 p-0 col-md-12 col-xl-12 d-flex" style="justify-content: space-between;
             padding-top:15px">
 
-        <div class="shadow col-md-12 col-xl-12 col-sm-12">
+        <div class="col-md-12 col-xl-12 col-sm-12">
               <b-card class="shadow col-md-12 col-xl-12 col-sm-12" style=" height:100px">
-                <b-container class=" text-info d-flex align-items-center text-info"
-                style="font-size:36pt; justify-content: space-between;">
-                <b-icon icon="people-fill" variant="info" width="60" height="60"></b-icon>
-                <h2>Contacts enregistrés</h2>
+                <b-container class=" text-info text-center d-flex align-items-center text-info"
+                style="font-size:20pt; justify-content: space-between;">
+                <b-icon icon="people-fill" variant="info" width="40" height="40"></b-icon>
+                <h5>Contacts enregistrés</h5>
                 <nuxt-link class="text-decoration-none" :to="{name: 'contact-listContact'}">
                 <b-spinner v-if="loader" label="large spinner" variant="info"></b-spinner>
                     <b-badge v-else variant="info" pill>
@@ -23,13 +23,13 @@
                 class="text-center"
                   style="text-shadow: 0px 0px 2px #000;"
                   fade indicators
-                  img-width="400"
-                  img-height="100">
+                  img-width="1080"
+                  img-height="300">
                 <b-carousel-slide caption="Enregistrez un contact"
-                img-src= '~/assets/info.jpg'>
-                <p>Utilisez la barre de navigation à gauche pour créer
-                  un contact
-                </p>
+                img-src='~/assets/info.jpg'>
+                  <p>Utilisez la barre de navigation à gauche pour créer
+                    un contact
+                  </p>
                 </b-carousel-slide>
                 <b-carousel-slide caption="Touches d'actions"
                 img-src='~/assets/info.jpg'>

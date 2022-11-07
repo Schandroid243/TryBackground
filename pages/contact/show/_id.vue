@@ -1,12 +1,12 @@
 <template>
   <div class=" mt-4" style="padding-top: 15px ">
       <b-row class="align-items-center justify-content-center">
-        <b-col class=" col-md-9 col-xl-12 col-lg-12">
+        <b-col class=" col-md-12 col-xl-12 col-lg-12 p-0">
         <b-container class="mt-4 mb-4 text-danger h5">
           <!-- <h5 class="text-danger"> <em>{{info}}</em> </h5> -->
         </b-container>
         <div class="d-flex" style=" justify-content:space-between">
-          <h4 class="text-white">Infos profil : {{contact.firstName}} {{contact.name}} {{contact.lastName}}</h4>
+          <h5 class="text-white">Contact : {{contact.firstName}} {{contact.name}} {{contact.lastName}}</h5>
           <nuxt-link class="btn btn-secondary text-decoration-none text-white"
                     :to=" {name: 'profile-add-id', params: {id: contact.id}} ">
                     <b-icon icon="person-plus-fill" width="22px" height="22px"></b-icon>
@@ -84,6 +84,11 @@
       }
     },
     mounted() {
+      this.init()
+      this.getProfile()
+      this.getContact()
+    },
+    created() {
       this.init()
       this.getProfile()
       this.getContact()
