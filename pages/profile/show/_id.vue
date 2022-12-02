@@ -65,6 +65,11 @@
                       <label>Adresse :</label>
                       <em class="h5">{{profile.adress}}</em>
                     </b-container>
+                    <b-container class="mt-2 mb-2 p-0">
+                      <label>Status :</label>
+                      <em v-if="profile.status" class="h5">Validée</em>
+                      <em v-else class="h5">Enregistrée</em>
+                    </b-container>
                   </div>
                 </b-col>
                 <b-col class="col-md-3 col-sm-12 col-xl-3">
@@ -127,6 +132,7 @@
           email: '',
           website: '',
           adress: '',
+          status: '',
           token: ''
         },
         vcard: '',

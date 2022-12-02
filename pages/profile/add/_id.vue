@@ -122,7 +122,8 @@
           title: '',
           email: '',
           website: '',
-          adress: ''
+          adress: '',
+          status: '',
 
         },
         loader: '',

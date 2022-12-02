@@ -25,11 +25,16 @@
       type="password"
       placeholder="Votre mot de passe">
       </b-form-input>
-      <p class="text-danger"> {{info}} </p>
+      <template>
+        <div class="">
+          <b-form-select v-model="form.role_id" :options="myRoles"></b-form-select>
+        </div>
+      </template>
+      <p class="h6 text-danger"> {{message}} </p>
       <b-container class="mt-4 mb-4 justify-content-center d-flex" style="gap: 5px">
-      <b-button type="submit" class="btn-info">Enregister</b-button>
-      <b-button @click="cancel" class="btn-danger">Annuler</b-button>
-      </b-container>
+        <b-button type="submit" class="btn-info">Enregister</b-button>
+        <b-button @click="cancel" class="btn-danger">Annuler</b-button>
+        </b-container>
   </b-card>
     </b-form>
     </b-row>
@@ -42,31 +47,78 @@ export default {
   layout: 'login',
     data() {
         return {
+            message: '',
             form : {
             name: '',
             email: '',
             password: '',
-            token:''
+            role_id: '',
             },
-            info: ''
+            token:'',
+            info: '',
+            options: [
+              {value: null, text: 'Veuillez choisir votre fonction'},
+            ],
+            role : {
+              id: '',
+              name: ''
+            },
+            listRoles: []
 
         }
+    },
+    created() {
+      this.getRoles()
+    },
+    mounted() {
+      this.getRoles()
+    },
+    computed: {
+      myRoles() {
+        return this.listRoles.map(role => ({value: role.id, text: role.name}))
+      }
     },
     methods : {
       submitForm() {
         this.$axios.post('auth/signUp',this.form).then((response) => {
+          if (this.form.role_id = 1) {
+            this.message = 'Le rôle admin a été attribué'
+          } else {
+            this.message = 'Enregistrement avec succès!'
+          }
           console.log(response)
         }).catch((error) => {
           console.log({"message": error.message})
         })
         if (this.form.password.length < 6) {
-            this.info = 'Mot de passe : plus de 6 caractères'
+            this.info = 'Mot de passe : plus de 6 caractères SVP !'
           } else {
             this.$router.go(-1)
           }
       },
       cancel() {
         this.$router.go(-1)
+      },
+      async getRoles() {
+        try {
+          let response = await this.$axios.get('role/allRoles', this.role, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'x-access-token': this.token
+          },
+        }, {
+            withCredentials: true
+        })
+        console.log(response)
+         this.listRoles = response.data
+         return this.listRoles
+        } catch (err) {
+          console.log(error)
+        } finally {
+          this.loader = false
+
+        }
       },
     }
 

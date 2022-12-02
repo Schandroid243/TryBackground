@@ -22,7 +22,7 @@
                     <img src="~/assets/profile.jpeg" height="30px" width="30px" style="border-radius:100%">
                   </template>
                   <b-dropdown-item>
-                    <em class="text-dark mx-2">{{currentUser}}</em>
+                    <em class="text-dark mx-2">{{currentUser.name}}</em>
                   </b-dropdown-item>
                   <b-dropdown-item @click="logOut">
                     Deconnexion
@@ -108,7 +108,11 @@
     data() {
       return {
         token: '',
-        currentUser: '',
+        currentUser: {
+          name: '',
+          role: '',
+          id: ''
+        },
         refreshData: {
           email: '',
         },
@@ -184,7 +188,7 @@
             }, {withCredentials: true}).then((response) => {
               console.log(response)
               console.log(this.currentUser)
-              return this.currentUser = response.data.email
+              return this.currentUser = response.data.data
             }).catch((error) => {
               console.log(error)
             })

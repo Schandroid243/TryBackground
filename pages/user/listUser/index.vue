@@ -24,13 +24,21 @@
               <template #cell(Email)="user"> {{user.item.email}} </template>
 
               <template #cell(Action)="user">
-                <nuxt-link :to=" {name: 'user-delete-id', params: {id: user.item.id}}" v-if="currentUser != user.item.email">
-                  <b-button
-                    variant="danger" >
-                   <b-icon icon="eraser-fill"></b-icon>
-                  </b-button>
+                <b-row class="d-flex col-md-12 align-items-center justify-content-center" style="gap:10px">
+                  <nuxt-link :to=" {name: 'user-edit-id', params: {id: user.item.id}}">
+                    <b-button
+                      variant="secondary" >
+                     <b-icon icon="pencil-square"></b-icon>
+                    </b-button>
+                  </nuxt-link>
+                  <nuxt-link :to=" {name: 'user-delete-id', params: {id: user.item.id}}">
+                    <b-button v-if="currentUser !== user.item.email"
+                      variant="danger" >
+                     <b-icon icon="eraser-fill"></b-icon>
+                    </b-button>
+                  </nuxt-link>
+                </b-row>
 
-                </nuxt-link>
 
 
               </template>

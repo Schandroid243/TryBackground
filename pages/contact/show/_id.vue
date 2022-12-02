@@ -5,7 +5,7 @@
         <b-container class="mt-4 mb-4 text-danger h5">
           <!-- <h5 class="text-danger"> <em>{{info}}</em> </h5> -->
         </b-container>
-        <div class="d-flex" style=" justify-content:space-between">
+        <div class="m-4 d-flex" style=" justify-content:space-between">
           <h5 class="text-white">Contact : {{contact.firstName}} {{contact.name}} {{contact.lastName}}</h5>
           <nuxt-link class="btn btn-secondary text-decoration-none text-white"
                     :to=" {name: 'profile-add-id', params: {id: contact.id}} ">
@@ -26,14 +26,14 @@
           <b-row v-else class="d-flex col-md-12" style="justify-content:space-around" >
             <div class="col-md-4 mt-1" v-for="(profile, i) in listProfile" :key="i">
             <b-card
-            class="shadow "
-            style=" width:100%; height:230px">
-            <b-container class="align-items-center mt-4">
-            <b-row class="d-flex justify-content-center">
-              <img src="~/assets/profile.jpeg" style="width:30%; height:100%">
+            class="shadow"
+            style=" width:100%; height:45vh">
+            <b-container class="align-items-center justify-content-center mt-4">
+            <b-row class="d-flex justify-content-center align-items-center text-center">
+              <img src="~/assets/profile.jpeg" style="width:35%; height:100%">
               <div>
                 <h5 class="text-dark mt-2 mb-2"> {{profile.organization}} </h5>
-                <h6 class="text-danger mt-2 mb-2"> {{profile.title}} </h6>
+                <h6 class="text-secondary mt-2 mb-2"> {{profile.title}} </h6>
                 <b-container class="d-flex" style="justify-content: space-around;">
                   <nuxt-link style="width:30%; height:100%" class="btn text-decoration-none text-white"
                     :to=" {name: 'profile-edit-id', params: {id: profile.id}} ">
@@ -48,6 +48,12 @@
                     <b-icon icon="eraser-fill"></b-icon>
                   </nuxt-link>
                 </b-container>
+                <div v-if="profile.status">
+                  <h6 class="text-danger mt-2 mb-2">validée</h6>
+                </div>
+                <div v-else>
+                  <h6  class="text-danger mt-2 mb-2">Enregistrée</h6>
+                </div>
               </div>
             </b-row>
             </b-container>
@@ -71,6 +77,7 @@
           contact_id: '',
           title: '',
           organization: '',
+          status: false
         },
         contact: {
           id: '',
@@ -121,6 +128,7 @@
         }).then((response) => {
           console.log(response)
           this.listProfile =  response.data[0].profiles
+          console.log('voici status' + this.checkStatus)
         }).catch((error) => {
           console.log(error)
           this.info = 'vous êtes hors-connexion'

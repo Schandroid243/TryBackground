@@ -81,6 +81,24 @@
                 </b-form-group>
               </b-col>
             </b-row>
+            <b-row class="mt-1 mb-1" style="">
+              <template>
+                <b-col lg="3">
+                  <h6>Status</h6>
+                </b-col>
+                <b-col lg="9" >
+                  <b-form-group v-if="checkUserRole" v-slot="{ ariaDescribedby }" >
+                    <b-form-radio v-model="form.status" :aria-describedby="ariaDescribedby" name="some-radios" value="false">Enregistrée</b-form-radio>
+                    <b-form-radio v-model="form.status" :aria-describedby="ariaDescribedby" name="some-radios" value="true">Validée</b-form-radio>
+                  </b-form-group>
+                  <b-form-group v-else>
+                    <b-form-radio disabled v-model="form.status" :aria-describedby="ariaDescribedby" name="some-radios" value="false">Enregistrée</b-form-radio>
+                    <b-form-radio disabled v-model="form.status" :aria-describedby="ariaDescribedby" name="some-radios" value="true">Validée</b-form-radio>
+                  </b-form-group>
+                </b-col>
+                  <!-- <div class="mt-3">Selected: <strong>{{ selected }}</strong></div> -->
+              </template>
+            </b-row>
           </b-card>
           <b-container class="d-flex mt-4 mb-4  d-flex align-items-center justify-content-md-end">
             <b-button @click="submitForm" class="btn-secondary text-white col-md-4 mx-2">
@@ -101,6 +119,13 @@
     data() {
       return {
         id: "",
+        checkUserRole: false,
+        currentUser:{
+          id: 0,
+          name: '',
+          email: '',
+          role: ''
+        },
         form: {
           title: '',
           organization: '',
@@ -109,6 +134,7 @@
           email: '',
           website: '',
           adress: '',
+          status: ''
 
         },
         token: '',
@@ -119,14 +145,32 @@
     },
     created() {
       this.init()
+      this.getUsers()
       this.getProfile()
     },
     methods: {
       init() {
         this.id = this.$route.params.id
         this.token = this.$auth.strategy.token.get()
-        console.log(this.id)
       },
+      getUsers() {
+            this.$axios.get('auth/userDetails', {
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'x-access-token': this.token},
+            }, {withCredentials: true}).then((response) => {
+              console.log(response)
+              if(response.data.data.role == 'Admin') {
+                this.checkUserRole = true;
+              } else {
+                this.checkUserRole = false;
+              }
+              return this.currentUser = response.data.data
+            }).catch((error) => {
+              console.log(error)
+            })
+          },
       getProfile() {
         this.loader = true
         this.$axios.get(`profile/profileDetail/${this.id}`, {
