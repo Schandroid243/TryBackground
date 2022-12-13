@@ -99,7 +99,7 @@
         this.$router.go(-1)
       },
       submitForm() {
-        this.$axios.put(`contact/updateContact/${this.id}`, {
+        this.$axios.put(`contact/updateContact/${this.id}`, this.form, {
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
@@ -107,7 +107,8 @@
           },
         }, {
           withCredentials: true
-        }, this.form).then((response) => {
+        }).then((response) => {
+          console.log('Updated one !')
           console.log(response.data)
         }).catch((error) => {
           console.log(error)

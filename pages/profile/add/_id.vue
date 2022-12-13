@@ -171,14 +171,12 @@
         }, {
           withCredentials: true
         }).then((response) => {
-
-          this.form = response.data
+          //this.form = response.data
           console.log(this.form)
+          this.$router.go(-1)
         }).catch((error) => {
           console.log(error)
         })
-        this.$router.go(-1)
-
 
       },
       cancel() {

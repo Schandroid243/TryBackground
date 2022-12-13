@@ -92,11 +92,12 @@
       }
     },
 
-    mounted() {
+    created() {
       this.init()
       this.getContacts()
     },
-    created() {
+
+    mounted() {
       this.init()
       this.getContacts()
     },
