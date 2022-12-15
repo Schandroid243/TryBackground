@@ -27,7 +27,7 @@
             <div class="col-md-4 mt-1" v-for="(profile, i) in listProfile" :key="i">
             <b-card
             class="shadow"
-            style=" width:100%; height:45vh">
+            style=" width:100%; height:100%">
             <b-container class="align-items-center justify-content-center mt-4">
             <b-row class="d-flex justify-content-center align-items-center text-center">
               <img src="~/assets/profile.jpeg" style="width:35%; height:100%">
@@ -87,17 +87,18 @@
         },
         loader: false,
 
-        listProfile: []
+        listProfile: [],
+        dataProfile: [],
       }
-    },
-    mounted() {
-      this.init()
-      this.getProfile()
-      this.getContact()
     },
     created() {
       this.init()
       this.getProfile()
+      this.getContact()
+    },
+
+    mounted() {
+      this.init()
       this.getContact()
     },
 
@@ -106,7 +107,6 @@
       init() {
         this.id = this.$route.params.id
         this.token = this.$auth.strategy.token.get()
-        console.log('this is id: ' + this.id)
       },
       creer() {
         this.$router.push({
@@ -114,10 +114,10 @@
         })
       },
 
-      async getProfile() {
+      getProfile() {
 
         this.loader = true
-        this.$axios.get(`contact/allContactProfiles/${this.id}`, {
+        this.$axios.get('profile/AllProfiles/', {
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
@@ -126,9 +126,13 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response)
-          this.listProfile =  response.data[0].profiles
-          console.log('voici status' + this.checkStatus)
+          this.dataProfile = response.data
+          this.dataProfile.forEach((element) => {
+            if(element.contact_id == this.id){
+              this.listProfile.push(element)
+            }
+          });
+
         }).catch((error) => {
           console.log(error)
           this.info = 'vous êtes hors-connexion'
@@ -147,7 +151,6 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response)
           this.contact = response.data
 
         }).catch((error) => {

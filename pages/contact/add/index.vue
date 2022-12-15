@@ -51,6 +51,8 @@
     name: 'ContactCard',
     data() {
       return {
+        loader: false,
+        info: '',
         form: {
           name: '',
           firstName: '',
@@ -72,7 +74,6 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response)
           this.$router.push({
             name: 'contact-listContact'
           })

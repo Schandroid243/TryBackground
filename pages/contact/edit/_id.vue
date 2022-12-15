@@ -108,12 +108,12 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log('Updated one !')
           console.log(response.data)
+          this.$router.go(-1)
         }).catch((error) => {
           console.log(error)
         })
-        this.$router.go(-1)
+
       },
     }
 

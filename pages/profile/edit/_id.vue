@@ -91,7 +91,7 @@
                     <b-form-radio v-model="form.status" :aria-describedby="ariaDescribedby" name="some-radios" value="false">Enregistrée</b-form-radio>
                     <b-form-radio v-model="form.status" :aria-describedby="ariaDescribedby" name="some-radios" value="true">Validée</b-form-radio>
                   </b-form-group>
-                  <b-form-group v-else>
+                  <b-form-group v-else v-slot="{ ariaDescribedby }">
                     <b-form-radio disabled v-model="form.status" :aria-describedby="ariaDescribedby" name="some-radios" value="false">Enregistrée</b-form-radio>
                     <b-form-radio disabled v-model="form.status" :aria-describedby="ariaDescribedby" name="some-radios" value="true">Validée</b-form-radio>
                   </b-form-group>
