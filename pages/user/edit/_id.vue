@@ -29,10 +29,11 @@
                   <b-form-input v-model="form.email" class="mt-1 mb-1" id="FirstName" placeholder="Entrer votre email">
                   </b-form-input>
                   <b-form-input v-model="form.password" class="mt-1 mb-1" id="LastName"
-                    placeholder="Entrez votre mot de passe"></b-form-input>
+                    placeholder="Entrez votre nouveau mot de passe"></b-form-input>
                     <template>
                       <div class="">
-                        <b-form-select v-model="form.role_id" :options="myRoles"></b-form-select>
+                        <b-form-select v-if="checkUserRole" v-model="form.role_id" :options="myRoles"></b-form-select>
+                        <b-form-select disabled v-else v-model="form.role_id" :options="myRoles"></b-form-select>
                       </div>
                     </template>
                 </b-form-group>
@@ -59,6 +60,13 @@
         id: '',
         loader: false,
         info: '',
+        checkUserRole: false,
+        currentUser:{
+          id: 0,
+          name: '',
+          email: '',
+          role: ''
+        },
         form: {
           id: '',
           name: '',
@@ -117,6 +125,12 @@
       }, {withCredentials: true}).then((response) => {
         console.log(response)
         this.form = response.data.data
+        if(response.data.data.role == 'Admin') {
+                this.checkUserRole = true;
+              } else {
+                this.checkUserRole = false;
+              }
+              return this.currentUser = response.data.data
       }).catch((error) => {
         console.log(error)
       }).finally(() => {

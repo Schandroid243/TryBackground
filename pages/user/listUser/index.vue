@@ -26,13 +26,14 @@
               <template #cell(Action)="user">
                 <b-row class="d-flex col-md-12 align-items-center justify-content-center" style="gap:10px">
                   <nuxt-link :to=" {name: 'user-edit-id', params: {id: user.item.id}}">
-                    <b-button
+                    <b-button v-if="currentUser == user.item.email"
                       variant="secondary" >
                      <b-icon icon="pencil-square"></b-icon>
                     </b-button>
+
                   </nuxt-link>
                   <nuxt-link :to=" {name: 'user-delete-id', params: {id: user.item.id}}">
-                    <b-button v-if="currentUser !== user.item.email"
+                    <b-button v-if="checkUser"
                       variant="danger" >
                      <b-icon icon="eraser-fill"></b-icon>
                     </b-button>
@@ -51,6 +52,8 @@
   </b-container>
 </template>
 <script>
+import { info } from 'console'
+
 
 export default {
 
@@ -61,6 +64,7 @@ export default {
       token: '',
       refreshToken: '',
       currentUser: '',
+      checkUser: false,
       loader: false
       }
     },
@@ -80,21 +84,7 @@ export default {
     init() {
       this.token = this.$auth.strategy.token.get()
     },
-    getUserDetail() {
-        this.$axios.get('auth/userDetails', {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'x-access-token': this.token},
-        }, {withCredentials: true}).then((response) => {
-          console.log(response)
-          console.log(this.currentUser)
-          return this.currentUser = response.data.email
-        }).catch((error) => {
-          console.log(error)
-        })
-      },
-      getUsers() {
+    getUsers() {
       this.loader = true
 
       this.$axios.get('auth/users', {
@@ -103,14 +93,32 @@ export default {
           'Access-Control-Allow-Origin': '*',
           'x-access-token': this.token},
       }, {withCredentials: true}).then((response) => {
-        console.log(response)
         return this.userList = response.data
       }).catch((error) => {
         console.log(error)
       }).finally(() => {
         this.loader = false
       })
-    }
+    },
+    getUserDetail() {
+        this.$axios.get('auth/userDetails', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'x-access-token': this.token},
+        }, {withCredentials: true}).then((response) => {
+          console.log(response)
+          this.currentUser = response.data.data.email
+          if(response.data.data.role == 'Admin') {
+            this.checkUser = true
+          } else {
+            this.checkUser = false
+          }
+          console.log(this.currentUser)
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
 
   }
 }
