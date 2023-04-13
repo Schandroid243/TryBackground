@@ -74,7 +74,7 @@
                 </b-col>
                 <b-col class="col-md-3 col-sm-12 col-xl-3">
                   <div id="contact">
-                    <vue-qr :text="vcard" :size="300">
+                    <vue-qr :text="vcard" :size="250">
                     </vue-qr>
                   </div>
                   <b-container>
