@@ -32,14 +32,22 @@
 
               </b-col>
             </b-row>
+
             <b-row class="mt-2 mb-2">
+
               <b-col lg="3">
                 <label for="name" class="">Téléphone</label>
+            
+                
+                
               </b-col>
+              
               <b-col lg="9">
                 <b-form-group>
+                  <label for="name" class="">Bureau</label>
                   <b-form-input v-model="form.phoneNumberWork" class="mt-2 mb-2" id="Work" placeholder="Tél. Bureau">
                   </b-form-input>
+                  <label for="name" class="">Domicile</label>
                   <b-form-input v-model="form.phoneNumberHome" class="mt-2 mb-2" id="Work" placeholder="Tél. Domicile">
                   </b-form-input>
                 </b-form-group>
@@ -216,6 +224,7 @@
 
 </script>
 
-<style>
-
+<style scoped>
+.align {
+}
 </style>
