@@ -206,8 +206,8 @@
           "ORG;CHARSET=UTF-8:" + this.profile.organization + "\n" +
           "TITLE;CHARSET=UTF-8:" + this.profile.title + "\n" +
           "ADR:;;" + this.profile.adress + ";;;;;" + "\n" +
-          "TEL;TYPE=work;VALUE=uri:" + this.profile.phoneNumberWork + "\n" +
           "TEL;TYPE=home;VALUE=uri:" + this.profile.phoneNumberHome + "\n" +
+          "TEL;TYPE=work;VALUE=uri:" + this.profile.phoneNumberWork + "\n" +
           "EMAIL:" + this.profile.email + "\n" +
           "URL;CHARSET=UTF-8:" + this.profile.website + "\n" +
           "END:VCARD";
