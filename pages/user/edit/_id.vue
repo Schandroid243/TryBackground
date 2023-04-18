@@ -104,7 +104,6 @@
         }).then((response) => {
 
         }).catch((error) => {
-          console.log(error)
         })
         this.$router.push({
           name: 'user-listUser'
@@ -148,11 +147,9 @@
         }, {
             withCredentials: true
         })
-        console.log(response)
          this.listRoles = response.data
          return this.listRoles
         } catch (err) {
-          console.log(error)
         } finally {
           this.loader = false
 
