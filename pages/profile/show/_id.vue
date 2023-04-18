@@ -193,7 +193,6 @@
       },
 
        vCard() {
-        console.log(this.profile.phoneNumberWork);
         this.vcard = "BEGIN:VCARD" + "\n" +
           "VERSION:4.0" + "\n" +
           "FN:" + this.contact.firstName + " " + this.contact.name + " " + this.contact.lastName + "\n" +

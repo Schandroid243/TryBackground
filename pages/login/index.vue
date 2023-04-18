@@ -95,7 +95,6 @@ Vue.use(BootstrapVueIcons)
 
         } catch (err) {
           this.info = 'Email ou mot de passe incorrect !'
-          console.log(err)
         } finally{
           this.loader = false
         }
