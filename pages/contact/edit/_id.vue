@@ -73,7 +73,6 @@
       init() {
         this.id = this.$route.params.id
         this.token = this.$auth.strategy.token.get()
-        console.log(this.id)
       },
       getContact() {
         this.loader = true
@@ -86,10 +85,8 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response)
           this.form = response.data
         }).catch((error) => {
-          console.log(error)
           this.info = 'vous êtes hors-connexion'
         }).finally(() => {
           this.loader = false
@@ -108,10 +105,8 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response.data)
           this.$router.go(-1)
         }).catch((error) => {
-          console.log(error)
         })
 
       },

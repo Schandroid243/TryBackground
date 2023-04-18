@@ -186,8 +186,6 @@
                 'Access-Control-Allow-Origin': '*',
                 'x-access-token': this.token},
             }, {withCredentials: true}).then((response) => {
-              console.log(response)
-              console.log(this.currentUser)
               return this.currentUser = response.data.data
             }).catch((error) => {
               console.log(error)

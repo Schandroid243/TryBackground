@@ -134,7 +134,6 @@
           });
 
         }).catch((error) => {
-          console.log(error)
           this.info = 'vous êtes hors-connexion'
         }).finally(() => {
           this.loader = false
@@ -154,7 +153,6 @@
           this.contact = response.data
 
         }).catch((error) => {
-          console.log(error)
           this.info = 'vous êtes hors-connexion'
         }).finally(() => {
           this.loader = false

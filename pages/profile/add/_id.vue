@@ -150,11 +150,9 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response)
           this.contact = response.data
 
         }).catch((error) => {
-          console.log(error)
           this.info = 'vous êtes hors-connexion'
         }).finally(() => {
           this.loader = false
@@ -173,7 +171,6 @@
         }).then((response) => {
           this.$router.go(-1)
         }).catch((error) => {
-          console.log(error)
         })
 
       },

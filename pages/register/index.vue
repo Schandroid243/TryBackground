@@ -86,7 +86,6 @@ export default {
           } else {
             this.message = 'Enregistrement avec succès!'
           }
-          console.log(response)
         }).catch((error) => {
           console.log({"message": error.message})
         })
@@ -110,11 +109,9 @@ export default {
         }, {
             withCredentials: true
         })
-        console.log(response)
          this.listRoles = response.data
          return this.listRoles
         } catch (err) {
-          console.log(error)
         } finally {
           this.loader = false
 

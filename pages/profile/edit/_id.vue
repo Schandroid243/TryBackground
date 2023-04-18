@@ -168,7 +168,6 @@
                 'Access-Control-Allow-Origin': '*',
                 'x-access-token': this.token},
             }, {withCredentials: true}).then((response) => {
-              console.log(response)
               if(response.data.data.role == 'Admin') {
                 this.checkUserRole = true;
               } else {
@@ -176,7 +175,6 @@
               }
               return this.currentUser = response.data.data
             }).catch((error) => {
-              console.log(error)
             })
           },
       getProfile() {
@@ -190,10 +188,8 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response)
           this.form = response.data
         }).catch((error) => {
-          console.log(error)
           this.info = 'vous êtes hors-connexion'
         }).finally(() => {
           this.loader = false
@@ -212,9 +208,9 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response.data)
+          
         }).catch((error) => {
-          console.log(error)
+
         })
         this.$router.go(-1)
       },

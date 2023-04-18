@@ -164,11 +164,9 @@
           }, {
             withCredentials: true
           }).then((response) => {
-            console.log(response)
             this.profile = response.data
             this.vCard()
           }).catch((error) => {
-            console.log(error)
             this.info = 'vous êtes hors-connexion'
           }).finally(() => {
             this.loader = false
@@ -185,11 +183,9 @@
           }, {
             withCredentials: true
           }).then((response) => {
-            console.log(response)
             this.contact = response.data
 
           }).catch((error) => {
-            console.log(error)
             this.info = 'vous êtes hors-connexion'
           }).finally(() => {
             this.loader = false
