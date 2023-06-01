@@ -71,7 +71,7 @@
     </b-container>
   </div>
 </template>
-<script>
+<script lang="js">
 
   import Vue from 'vue'
   import {

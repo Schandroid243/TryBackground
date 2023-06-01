@@ -24,10 +24,10 @@
             </b-card>
           </b-row>
           <b-row v-else class="d-flex col-md-12" style="justify-content:space-around" >
-            <div class="col-md-4 mt-1" v-for="(profile, i) in listProfile" :key="i">
+            <div class="col-md-6 mt-1" v-for="(profile, i) in listProfile" :key="i">
             <b-card
             class="shadow"
-            style=" width:100%; height:100%">
+            style=" width:100%; height:100%; border-radius: 20px;">
             <b-container class="align-items-center justify-content-center mt-4">
             <b-row class="d-flex justify-content-center align-items-center text-center">
               <img src="~/assets/profile.jpeg" style="width:35%; height:100%">
@@ -48,11 +48,14 @@
                     <b-icon icon="eraser-fill"></b-icon>
                   </nuxt-link>
                 </b-container>
-                <div v-if="profile.status">
-                  <h6 class="text-danger mt-2 mb-2">validée</h6>
+                <div>
+                  <h6 v-if="profile.status" class="text-info mt-2 mb-2">Status : activate</h6>
+                  <h6 v-else  class="text-danger mt-2 mb-2">Status : desactivate</h6>
+                  <h6 class="text-secondary mx-2 mb-2"><em>Votre abonnement expire le :</em></h6>
+                  <h6 class="text-secondary mt-2 mb-2">{{ profile.expirationDate }}</h6>
                 </div>
-                <div v-else>
-                  <h6  class="text-danger mt-2 mb-2">Enregistrée</h6>
+                <div v-if = "profile.expirationDate !== Date.now">
+                  <b-button @click="activation(profile.id)" class="btn text-white">Activate</b-button>
                 </div>
               </div>
             </b-row>
@@ -62,6 +65,9 @@
           </b-row>
           </b-col>
           </b-row>
+          <b-modal id="modal-1" title="Message" ok-only hide-header-close>
+                  <p class="my-4">Votre profile a été activé</p>
+                </b-modal>
         </b-container>
        </b-col>
       </b-row>
@@ -69,6 +75,7 @@
 </template>
 
 <script>
+import { Console } from 'console'
   export default {
     data() {
       return {
@@ -77,7 +84,8 @@
           contact_id: '',
           title: '',
           organization: '',
-          status: false
+          status: false,
+          expirationDate: '',
         },
         contact: {
           id: '',
@@ -126,6 +134,7 @@
         }, {
           withCredentials: true
         }).then((response) => {
+
           this.dataProfile = response.data
           this.dataProfile.forEach((element) => {
             if(element.contact_id == this.id){
@@ -138,6 +147,37 @@
           this.info = 'vous êtes hors-connexion'
         }).finally(() => {
           this.loader = false
+        })
+      },
+      activation(ID) {
+        console.log(ID)
+        this.$axios.put(`profile/activateProfile/${ID}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'x-access-token': this.token
+          },
+        }, {
+          withCredentials: true
+        }).then((response) => {
+          console.log(response)
+          this.makeToast()
+
+          this.$router.go(0)
+
+        }).catch((error) => {
+          console.log(error)
+          this.$bvModal.show('modal-1')
+          this.info = 'vous êtes hors-connexion'
+        }).finally(() => {
+          this.loader = false
+        })
+      },
+      makeToast(append = false) {
+        this.$bvToast.toast('Votre profile a été activé', {
+          title: 'Message',
+          autoHideDelay: 5000,
+          appendToast: append,
         })
       },
       getContact() {

@@ -1,13 +1,13 @@
 <template>
   <div class=" mt-4">
       <b-row class="align-items-center justify-content-center">
-        <div class=" col-md-12 col-xl-12 col-lg-9 text-dark">
+        <div class=" col-md-12 col-xl-12 col-lg-12 text-dark">
           <b-container class="mt-4 mb-4 text-danger h5">
             <h5 class="text-danger"> <em>{{info}}</em> </h5>
           </b-container>
           <div class="d-flex"
                style="justify-content:space-between;
-               padding-top: 15px;">
+                padding-top: 15px;">
             <h4 class="text-white">Liste des contacts</h4>
             <nuxt-link class="text-decoration-none" :to="{name: 'contact-add'}">
               <b-button class="btn btn-secondary shadow">
@@ -37,6 +37,10 @@
                   <col  v-for="(contact, i) in listContact" :key="i">
                   <template #cell(first_name)="contact"> {{contact.item.firstName}} </template>
                   <template #cell(last_name)="contact"> {{contact.item.lastName}} </template>
+                  <template #cell(status)="contact">
+                    <p class="text-danger w-300" v-if="contact.item.paymentStatus == false"> desactivate </p>
+                    <p class="text-info w-800" v-else> activate </p>
+                  </template>
 
                   <template #cell(actions)="contact">
                     <b-container class="justify-content-center" style="gap:5px">
@@ -74,10 +78,10 @@
 
     data() {
       return {
-        perPage: 6,
+        perPage: 10,
         currentPage: 1,
         filter: '',
-        fields: ['first_name', 'name', 'last_name', 'actions'],
+        fields: ['first_name', 'name', 'last_name','status', 'actions'],
         listContact: [],
         token: '',
         currentUser: '',
