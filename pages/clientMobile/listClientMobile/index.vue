@@ -1,8 +1,10 @@
 <template>
-    <b-container fluid>
-      <b-row class="mt-4 align-items-center justify-content-center"
-      style="padding-top:15px">
-        <b-col class=" col-md-12 col-xl-12 col-lg-12 text-dark">
+    <div class="mt-4">
+      <b-row class="align-items-center justify-content-center">
+        <div class=" col-md-12 col-xl-12 col-lg-12 text-dark">
+          <b-container class="mt-4 mb-4 text-danger h5">
+            <h5 class="text-danger"> <em>{{info}}</em> </h5>
+          </b-container>
           <div class="d-flex"
                style="justify-content:space-between;
                 padding-top: 15px;">
@@ -14,13 +16,14 @@
               </b-button>
             </nuxt-link>
           </div>
-        <b-container class="mt-4 mb-4 col-md-12 col-xl-12 col-sm-12">
+        <b-container fluid class="mt-4 mb-4 col-md-12 col-xl-12 col-sm-12">
           <b-row>
             <form class="justify-content-center mt-4 mb-4">
                 <input size="md" class="form-control" type="search" v-model="filter"
                   placeholder="Recherchez client...">
               </form>
-            <b-col v-if="loader" class="mt-4 mb-4">
+              <template>
+                <b-container v-if="loader" class="mt-4 mb-4">
                 <b-row>
                 <b-card class="col-md-12" height="100">
                   <b-skeleton animation="throb" width="85%"></b-skeleton>
@@ -28,7 +31,7 @@
                   <b-skeleton animation="throb" width="70%"></b-skeleton>
                 </b-card>
                 </b-row>
-              </b-col>
+              </b-container>
               
             <b-table v-else class="table-light shadow text-left" striped hover :items="clientMobileList" :fields="fields"
             :filter="filter" :per-page="perPage" :current-page="currentPage" small>
@@ -55,11 +58,12 @@
                   <b-pagination v-model="currentPage" pills :total-rows="rows" :per-page="perPage"
                     aria-controls="table"></b-pagination>
                 </div>
+              </template>
           </b-row>
         </b-container>
-      </b-col>
+      </div>
       </b-row>
-    </b-container>
+    </div>
   </template>
   <script>
   import { info } from 'console'
