@@ -42,19 +42,26 @@
             <b-nav-item  class=" mt-2 mb-2">
                     <nuxt-link to="/home" class=" d-flex text-decoration-none text-white">
                       <b-icon icon="grid-fill" variant="white" width="22px" height="22px"></b-icon>
-                      <h5 class="px-3 text-white">Bureau</h5>
+                      <h6 class="px-3 text-white">Bureau</h6>
+                    </nuxt-link>
+                  </b-nav-item>
+                  <b-nav-item @click="clientMobile" class="mt-2 mb-2 ">
+                    <nuxt-link to="clientMobileList" class="d-flex text-decoration-none text-white">
+                      <b-icon icon="person-badge-fill" variant="white" width="22px" height="22px"></b-icon>
+                      <h6 class="px-3 text-white">Clients Mobiles</h6>
                     </nuxt-link>
                   </b-nav-item>
                   <b-nav-item @click="contact" class=" mt-2 mb-2 ">
                     <nuxt-link to="contactList" class="d-flex text-decoration-none text-white">
                       <b-icon icon="people-fill" variant="white" width="22px" height="22px"></b-icon>
-                      <h5 class="px-3 text-white">Contact</h5>
+                      <h6 class="px-3 text-white">Contact</h6>
                     </nuxt-link>
                   </b-nav-item>
+                  
                   <b-nav-item @click="utilisateur" class="mt-2 mb-2 ">
                     <nuxt-link to="userList" class="d-flex text-decoration-none text-white">
                       <b-icon icon="bag-fill" variant="white" width="22px" height="22px"></b-icon>
-                      <h5 class="px-3 text-white">Utilisateur</h5>
+                      <h6 class="px-3 text-white">Utilisateur</h6>
                     </nuxt-link>
                   </b-nav-item>
           </b-nav>
@@ -75,29 +82,11 @@
 
   import Vue from 'vue'
   import {
-    BootstrapVue,
-    BIcon,
-    BIconMenuApp,
-    BIconBagFill,
-    BIconPencilSquare,
-    BIconFileEarmarkPerson,
-    BIconEraserFill,
-    BIconPersonPlusFill,
-    BIconGridFill,
-    BIconPeopleFill
-
+    BootstrapVue, BootstrapVueIcons,
+   
   } from 'bootstrap-vue'
   Vue.use(BootstrapVue)
-  Vue.component('BIcon', BIcon)
-  Vue.component('BIconMenuApp', BIconMenuApp)
-  Vue.component('BIconBagFill', BIconBagFill)
-  Vue.component('BIconPencilSquare', BIconPencilSquare)
-  Vue.component('BIconFileEarmarkPerson', BIconFileEarmarkPerson)
-  Vue.component('BIconEraserFill', BIconEraserFill)
-  Vue.component('BIconPersonPlusFill', BIconPersonPlusFill)
-  Vue.component('BIconGridFill', BIconGridFill)
-  Vue.component('BIconPeopleFill', BIconPeopleFill)
-
+  Vue.use(BootstrapVueIcons)
 
   export default {
 
@@ -178,6 +167,9 @@
       },
       utilisateur() {
         this.$router.push({name:'user-listUser'})
+      },
+      clientMobile() {
+        this.$router.push({name:'clientMobile-listClientMobile'})
       },
       getUsers() {
             this.$axios.get('auth/userDetails', {

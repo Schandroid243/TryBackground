@@ -30,8 +30,11 @@
             style=" width:100%; height:100%; border-radius: 20px;">
             <b-container class="align-items-center justify-content-center mt-4">
             <b-row class="d-flex justify-content-center align-items-center text-center">
-              <img src="~/assets/profile.jpeg" style="width:35%; height:100%">
-              <div>
+              <b-col>
+                <img src="~/assets/profile.jpeg" style="width:80%; height:100%">
+              </b-col>
+              <b-col>
+                <div>
                 <h5 class="text-dark mt-2 mb-2"> {{profile.organization}} </h5>
                 <h6 class="text-secondary mt-2 mb-2"> {{profile.title}} </h6>
                 <b-container class="d-flex" style="justify-content: space-around;">
@@ -49,15 +52,17 @@
                   </nuxt-link>
                 </b-container>
                 <div>
-                  <h6 v-if="profile.status" class="text-info mt-2 mb-2">Status : activate</h6>
+                  <h6 v-if="contact.paymentStatus" class="text-info mt-2 mb-2">Status : activate</h6>
                   <h6 v-else  class="text-danger mt-2 mb-2">Status : desactivate</h6>
                   <h6 class="text-secondary mx-2 mb-2"><em>Votre abonnement expire le :</em></h6>
-                  <h6 class="text-secondary mt-2 mb-2">{{ profile.expirationDate }}</h6>
+                  <h6 class="text-secondary mt-2 mb-2">{{ contact.expirationDate }}</h6>
                 </div>
                 <div v-if = "profile.expirationDate !== Date.now">
                   <b-button @click="activation(profile.id)" class="btn text-white">Activate</b-button>
                 </div>
               </div>
+              </b-col>
+              
             </b-row>
             </b-container>
               </b-card>
@@ -91,7 +96,9 @@ import { Console } from 'console'
           id: '',
           name: '',
           firstName: '',
-          lastName: ''
+          lastName: '',
+          paymentStatus: true,
+          expirationDate: '',
         },
         loader: false,
 
@@ -149,9 +156,8 @@ import { Console } from 'console'
           this.loader = false
         })
       },
-      activation(ID) {
-        console.log(ID)
-        this.$axios.put(`profile/activateProfile/${ID}`, {
+      activation() {
+        this.$axios.put(`contact/activateContact/${this.id}`, {
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
@@ -192,7 +198,6 @@ import { Console } from 'console'
           withCredentials: true
         }).then((response) => {
           this.contact = response.data
-
         }).catch((error) => {
           console.log(error)
           this.info = 'vous êtes hors-connexion'

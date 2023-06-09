@@ -74,7 +74,7 @@
                 </b-col>
                 <b-col class="col-md-3 col-sm-12 col-xl-3">
                   <div id="contact">
-                    <vue-qr :text="vcard" :size="200">
+                    <vue-qr :text="vcard" :size="300" level="M">
                     </vue-qr>
                   </div>
                   <b-container>
@@ -145,6 +145,13 @@
       this.init()
       this.getContact()
       this.getProfile()
+      this.vCard()
+    },
+    mounted() {
+      this.init()
+      this.getContact()
+      this.getProfile()
+      this.vCard()
     },
     methods: {
       init() {
@@ -197,20 +204,31 @@
       },
 
        vCard() {
-        console.log(this.profile.phoneNumberWork);
-        this.vcard = "BEGIN:VCARD" + "\n" +
-          "VERSION:3.0" + "\n" +
-          "FN:" + this.contact.firstName + " " + this.contact.name + " " + this.contact.lastName + "\n" +
-          "N;" + this.contact.name + "\n" +
-          ";" + this.contact.lastName + "\n" +
-          "ORG;CHARSET=UTF-8:" + this.profile.organization + "\n" +
-          "TITLE;CHARSET=UTF-8:" + this.profile.title + "\n" +
-          "ADR:;;" + this.profile.adress + ";;;;;" + "\n" +
-          "TEL;TYPE=home;VALUE=uri:tel" + this.profile.phoneNumberWork + "\n" +
-          "TEL;TYPE=work;VALUE=uri:tel" + this.profile.phoneNumberHome + "\n" +
-          "EMAIL:" + this.profile.email + "\n" +
-          "URL;CHARSET=UTF-8:" + this.profile.website + "\n" +
-          "END:VCARD";
+
+        let vCardVersion = "VERSION:3.0";
+        let vCardOrg = "ORG:" + this.profile.organization;
+        let vCardTitle = "TITLE:" + this.profile.title;
+        let vCardAddress = "ADR;TYPE=home,PREF:;;" + this.profile.adress; 
+        let vCardTelWork = "TEL;TYPE=home;VALUE=uri:" + this.profile.phoneNumberWork;
+        let vCardTelHome = "TEL;TYPE=work;VALUE=uri:" + this.profile.phoneNumberHome;
+        let vCardEmail = "EMAIL:" + this.profile.email ;
+        let vCardUrl = "URL;CHARSET=UTF-8:" + this.profile.website;
+
+        if (this.contact.lastName == null) {
+          this.contact.lastName = " ";
+           let vCardFullName = "FN:" + this.contact.firstName + " "  + " " + this.contact.name +" " + this.contact.lastName ;    
+
+           this.vcard = "BEGIN:VCARD" + "\n" + vCardVersion + "\n" + vCardFullName + "\n" + vCardOrg + "\n"
+                      + vCardTitle + "\n" + vCardAddress + "\n" + vCardTelWork +  "\n" +  vCardTelHome + "\n" + vCardEmail + "\n" +
+                      vCardUrl + "\n" + "END:VCARD";
+        } else {
+          let vCardFullName = "FN:" + this.contact.firstName + " "  + " " + this.contact.name +" " + this.contact.lastName ;
+
+          this.vcard = "BEGIN:VCARD" + "\n" + vCardVersion + "\n" + vCardFullName + "\n" + vCardOrg + "\n"
+                      + vCardTitle + "\n" + vCardAddress + "\n" + vCardTelWork +  "\n" +  vCardTelHome + "\n" + vCardEmail + "\n" +
+                      vCardUrl + "\n" + "END:VCARD";
+        }
+
       },
 
       cancel() {

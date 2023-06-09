@@ -32,7 +32,7 @@
                   </b-card>
                   </b-row>
                 </b-container>
-                <b-table v-else class="table-light shadow text-center" striped hover id="table" :items="listContact" :fields="fields"
+                <b-table v-else class="table-light shadow text-left" striped hover id="table" :items="listContact" :fields="fields"
                   :filter="filter" :per-page="perPage" :current-page="currentPage" small>
                   <col  v-for="(contact, i) in listContact" :key="i">
                   <template #cell(first_name)="contact"> {{contact.item.firstName}} </template>
@@ -43,7 +43,7 @@
                   </template>
 
                   <template #cell(actions)="contact">
-                    <b-container class="justify-content-center" style="gap:5px">
+                    <b-container class="justify-content-left align-items-center p-0" style="gap:5px">
                       <nuxt-link class="btn btn-secondary text-decoration-none text-white"
                       :to=" {name: 'contact-edit-id', params: {id: contact.item.id}} ">
                       <b-icon icon="pencil-square"></b-icon>
@@ -57,7 +57,6 @@
                       <b-icon icon="eraser-fill"></b-icon>
                     </nuxt-link>
                     </b-container>
-
 
                   </template>
                 </b-table>
@@ -81,7 +80,7 @@
         perPage: 10,
         currentPage: 1,
         filter: '',
-        fields: ['first_name', 'name', 'last_name','status', 'actions'],
+        fields: ['  ','first_name', 'name', 'last_name','status', 'actions'],
         listContact: [],
         token: '',
         currentUser: '',
