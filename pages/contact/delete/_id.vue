@@ -55,7 +55,6 @@ methods: {
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response.data)
           this.$router.push({
             name: 'contact-listContact'
           })

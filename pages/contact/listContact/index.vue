@@ -133,10 +133,8 @@
         }, {
             withCredentials: true
         })
-        console.log(response)
         return this.listContact = response.data
         } catch (err) {
-          console.log(error)
           this.info = 'Vous êtes hors-conexion'
         } finally {
           this.loader = false

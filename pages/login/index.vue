@@ -78,7 +78,6 @@ Vue.use(BootstrapVueIcons)
             data: this.login
           })
 
-          console.log(response)
           var token = response.data.data.token
           var refreshToken = response.data.response.refreshToken
           this.userID = response.data.data.userId;
@@ -86,20 +85,16 @@ Vue.use(BootstrapVueIcons)
           //this.$auth.strategy.refreshToken.set(refreshToken);
           //console.log(this.$auth.strategy.token.get())
           //this.$auth.setRefreshToken('local', refreshToken)
-          console.log(this.$auth.strategy.refresh)
           await this.$auth.setUser({
             email: response.data.data.email,
             password: this.login.password
           })
-          console.log(this.$auth.user.email)
-          console.log('Check user loggedIn: ' + this.$auth.loggedIn)
           await this.$router.replace({
             name: 'home'
           })
 
         } catch (err) {
           this.info = 'Email ou mot de passe incorrect !'
-          console.log(err)
         } finally{
           this.loader = false
         }

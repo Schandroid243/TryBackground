@@ -102,9 +102,8 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response)
+
         }).catch((error) => {
-          console.log(error)
         })
         this.$router.push({
           name: 'user-listUser'
@@ -123,7 +122,7 @@
           'Access-Control-Allow-Origin': '*',
           'x-access-token': this.token},
       }, {withCredentials: true}).then((response) => {
-        console.log(response)
+       
         this.form = response.data.data
         if(response.data.data.role == 'Admin') {
                 this.checkUserRole = true;
@@ -132,7 +131,7 @@
               }
               return this.currentUser = response.data.data
       }).catch((error) => {
-        console.log(error)
+       
       }).finally(() => {
         this.loader = false
       })
@@ -148,11 +147,9 @@
         }, {
             withCredentials: true
         })
-        console.log(response)
          this.listRoles = response.data
          return this.listRoles
         } catch (err) {
-          console.log(error)
         } finally {
           this.loader = false
 

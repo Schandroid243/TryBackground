@@ -155,7 +155,6 @@ import { Console } from 'console'
           });
 
         }).catch((error) => {
-          console.log(error)
           this.info = 'vous êtes hors-connexion'
         }).finally(() => {
           this.loader = false
@@ -202,7 +201,6 @@ import { Console } from 'console'
           this.date = new Date(time).toUTCString();
           
         }).catch((error) => {
-          console.log(error)
           this.info = 'vous êtes hors-connexion'
         }).finally(() => {
           this.loader = false

@@ -81,10 +81,8 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response)
           this.form = response.data
         }).catch((error) => {
-          console.log(error)
         })
         this.$router.push({
           name: 'contact-listContact'

@@ -97,7 +97,7 @@ export default {
       }, {withCredentials: true}).then((response) => {
         return this.userList = response.data
       }).catch((error) => {
-        console.log(error)
+      
       }).finally(() => {
         this.loader = false
       })
@@ -109,16 +109,16 @@ export default {
             'Access-Control-Allow-Origin': '*',
             'x-access-token': this.token},
         }, {withCredentials: true}).then((response) => {
-          console.log(response)
+        
           this.currentUser = response.data.data.email
           if(response.data.data.role == 'Admin') {
             this.checkUser = true
           } else {
             this.checkUser = false
           }
-          console.log(this.currentUser)
+        
         }).catch((error) => {
-          console.log(error)
+        
         })
       },
 

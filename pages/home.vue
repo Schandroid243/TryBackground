@@ -93,11 +93,10 @@
        }, {
          withCredentials: true
        }).then((response) => {
-         console.log(response)
          return this.listContact = response.data
 
        }).catch((error) => {
-         console.log(error)
+   
        }).finally(() => {
          this.loader = false
        })

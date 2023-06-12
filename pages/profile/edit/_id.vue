@@ -32,14 +32,22 @@
 
               </b-col>
             </b-row>
+
             <b-row class="mt-2 mb-2">
+
               <b-col lg="3">
                 <label for="name" class="">Téléphone</label>
+            
+                
+                
               </b-col>
+              
               <b-col lg="9">
                 <b-form-group>
+                  <label for="name" class="">Bureau</label>
                   <b-form-input v-model="form.phoneNumberWork" class="mt-2 mb-2" id="Work" placeholder="Tél. Bureau">
                   </b-form-input>
+                  <label for="name" class="">Domicile</label>
                   <b-form-input v-model="form.phoneNumberHome" class="mt-2 mb-2" id="Work" placeholder="Tél. Domicile">
                   </b-form-input>
                 </b-form-group>
@@ -160,7 +168,6 @@
                 'Access-Control-Allow-Origin': '*',
                 'x-access-token': this.token},
             }, {withCredentials: true}).then((response) => {
-              console.log(response)
               if(response.data.data.role == 'Admin') {
                 this.checkUserRole = true;
               } else {
@@ -168,7 +175,6 @@
               }
               return this.currentUser = response.data.data
             }).catch((error) => {
-              console.log(error)
             })
           },
       getProfile() {
@@ -182,10 +188,8 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response)
           this.form = response.data
         }).catch((error) => {
-          console.log(error)
           this.info = 'vous êtes hors-connexion'
         }).finally(() => {
           this.loader = false
@@ -204,9 +208,9 @@
         }, {
           withCredentials: true
         }).then((response) => {
-          console.log(response.data)
+          
         }).catch((error) => {
-          console.log(error)
+
         })
         this.$router.go(-1)
       },
@@ -216,6 +220,7 @@
 
 </script>
 
-<style>
-
+<style scoped>
+.align {
+}
 </style>

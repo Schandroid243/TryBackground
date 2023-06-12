@@ -75,6 +75,7 @@
                 <b-col class="col-md-3 col-sm-12 col-xl-3">
                   <div id="contact">
                     <vue-qr :text="vcard" :size="300" level="M">
+
                     </vue-qr>
                   </div>
                   <b-container>
@@ -171,11 +172,9 @@
           }, {
             withCredentials: true
           }).then((response) => {
-            console.log(response)
             this.profile = response.data
             this.vCard()
           }).catch((error) => {
-            console.log(error)
             this.info = 'vous êtes hors-connexion'
           }).finally(() => {
             this.loader = false
@@ -192,11 +191,9 @@
           }, {
             withCredentials: true
           }).then((response) => {
-            console.log(response)
             this.contact = response.data
 
           }).catch((error) => {
-            console.log(error)
             this.info = 'vous êtes hors-connexion'
           }).finally(() => {
             this.loader = false
@@ -228,7 +225,6 @@
                       + vCardTitle + "\n" + vCardAddress + "\n" + vCardTelWork +  "\n" +  vCardTelHome + "\n" + vCardEmail + "\n" +
                       vCardUrl + "\n" + "END:VCARD";
         }
-
       },
 
       cancel() {

@@ -152,7 +152,7 @@
             name: 'contact-listContact'
           })
         }).catch((error) => {
-          console.log(error)
+          
         })
       },
       init() {
