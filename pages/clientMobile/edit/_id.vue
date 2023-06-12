@@ -1,8 +1,8 @@
 <template>
     <div class="mt-4" style="padding-top:15px">
         <b-row class="align-items-center justify-content-center">
-          <div class=" col-md-9 col-xl-9 col-lg-9 text-dark">
-            <b-container class="mt-4 mb-4">
+          <div class=" col-md-12 col-xl-9 col-lg-9 text-dark">
+            <b-container fluid class="mt-4 mb-4 p-0">
               <h3 class="text-white">Modifier un client mobile</h3>
             </b-container>
             <b-container fluid v-if="loader" class="mt-4 mb-4">
@@ -29,7 +29,7 @@
                     <b-form-input v-model="form.email" class="mt-1 mb-1" id="LastName"
                       placeholder="Entrez votre email"></b-form-input>
                       <b-form-input v-model="form.password" class="mt-1 mb-1" id="LastName"
-                      placeholder="Entrez votre mot de passe"></b-form-input>
+                      placeholder="Entrez votre nouveau mot de passe"></b-form-input>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -51,7 +51,9 @@
       name: 'User_add',
       data() {
         return {
-          id: '',
+          info : '',
+          loader:false,
+          id: "",
           form: {
             name: '',
             email: '',
@@ -60,32 +62,36 @@
          
         }
       },
-      mounted() {
-        this.init()
-        this.getClientMobileDetail()
-      },
       created() {
         this.init()
-        this.getClientMobileDetail()
+        this.getClientMobile()
       },
+      mounted() {
+        this.init()
+        this.getClientMobile()
+      },
+     
       methods: {
         init() {
-            this.token = this.$auth.strategy.token.get()
             this.id = this.$route.params.id
+            this.token = this.$auth.strategy.token.get()
           },
-        getClientMobileDetail() {
-          this.$axios.get(`clientMobile/clientMobileDetails/${this.id}`, {
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-              'x-access-token': this.token},
-          }, {withCredentials: true}).then((response) => {
-            console.log(response)
-            this.form = response.data
-          }).catch((error) => {
-            console.log(error)
-          })
-        },
+          getClientMobile() {
+             this.loader = true
+            this.$axios.get(`clientMobile/clientMobileDetails/${this.id}`, {
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'x-access-token': this.token},
+            }, {withCredentials: true}).then((response) => {
+              console.log(response);
+               return this.form = response.data.data;
+            }).catch((error) => {
+              console.log(error)
+            }).finally(() => {
+              this.loader = false
+            })
+          },
         submitForm() {
           this.$axios.put('clientMobile/updateClientMobile', this.form, {
             headers: {
@@ -105,9 +111,7 @@
             name: 'clientMobile-listClientMobile'
           })
         },
-        init() {
-          this.token = this.$auth.strategy.token.get()
-        },
+      
         cancel() {
           this.$router.go(-1);
         }

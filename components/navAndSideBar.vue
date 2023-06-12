@@ -48,7 +48,7 @@
                   <b-nav-item @click="clientMobile" class="mt-2 mb-2 ">
                     <nuxt-link to="clientMobileList" class="d-flex text-decoration-none text-white">
                       <b-icon icon="person-badge-fill" variant="white" width="22px" height="22px"></b-icon>
-                      <h6 class="px-3 text-white">Clients Mobiles</h6>
+                      <h6 class="px-3 text-white">Clients</h6>
                     </nuxt-link>
                   </b-nav-item>
                   <b-nav-item @click="contact" class=" mt-2 mb-2 ">

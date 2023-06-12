@@ -9,12 +9,12 @@
                style="justify-content:space-between;
                 padding-top: 15px;">
             <h4 class="text-white">Liste des contacts</h4>
-            <nuxt-link class="text-decoration-none" :to="{name: 'contact-add'}">
+            <!-- <nuxt-link class="text-decoration-none" :to="{name: 'contact-add'}">
               <b-button class="btn btn-secondary shadow">
                 <b-icon icon="person-plus-fill" width="22px" height="22px"></b-icon>
                 <span class="px-2">Créer</span>
               </b-button>
-            </nuxt-link>
+            </nuxt-link> -->
           </div>
           <b-container fluid class="mt-4 mb-4 col-md-12 col-xl-12 col-sm-12">
             <b-row>
@@ -78,9 +78,18 @@
       return {
         perPage: 10,
         currentPage: 1,
+
         filter: '',
         fields: ['  ','first_name', 'name', 'last_name','status', 'actions'],
         listContact: [],
+        listProfile: [],
+
+        dataProfile: {
+          id: '',
+          contact_id: '',
+          organization: '',
+        },
+        
         token: '',
         currentUser: '',
         info:'',
@@ -134,6 +143,33 @@
 
         }
       },
+      getProfile() {
+
+        this.loader = true
+        this.$axios.get('profile/AllProfiles/', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'x-access-token': this.token
+          },
+        }, {
+          withCredentials: true
+        }).then((response) => {
+
+          this.dataProfile = response.data
+          this.dataProfile.forEach((element) => {
+            if(element.contact_id == this.contact.item.id) {
+              this.listProfile.push(element)
+            }
+          });
+
+        }).catch((error) => {
+          console.log(error)
+          this.info = 'vous êtes hors-connexion'
+        }).finally(() => {
+          this.loader = false
+        })
+        },
     }
   }
 

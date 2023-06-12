@@ -7,7 +7,7 @@
           </b-container>
           <b-container fluid v-if="loader" class="mt-4 mb-4">
             <b-row>
-              <b-card class="col-md-12" height="100">
+              <b-card class="col-md-9" height="100">
                 <b-skeleton animation="throb" width="85%"></b-skeleton>
                 <b-skeleton animation="throb" width="55%"></b-skeleton>
                 <b-skeleton animation="throb" width="70%"></b-skeleton>
@@ -16,21 +16,7 @@
           </b-container>
           <b-container v-else>
             <form @submit.prevent="submitForm">
-              <b-card class="mb-4">
-            <template>
-            <div class="d-flex">
-              <b-container>
-                <h6 class="mb-2">Choissisez un client</h6>
-                <b-form-select required v-model="form.clientmobile_id" :options="myClients"></b-form-select>
-              </b-container>
-              <b-container>
-                <h6 class="mb-2">Choissisez un utilisateur :</h6>
-                <b-form-select required v-model="form.user_id" :options="myUsers"></b-form-select>
-              </b-container>
-              
-            </div>
-            </template>
-          </b-card>
+             
           <b-card  class="col-md-12">
             <b-row>
                 <h6 class="text-danger"> {{info}} </h6>
@@ -72,6 +58,7 @@
     name: 'ContactCard',
     data() {
       return {
+        id: "",
         loader: false,
         info: '',
         form: {
@@ -80,6 +67,11 @@
           lastName: '',
           clientmobile_id: '',
           user_id: '',
+        },
+        currentUser: {
+          name: '',
+          role: '',
+          id: ''
         },
         options: [
               {value: null, text: 'Veuillez choisir votre un client'},
@@ -92,18 +84,17 @@
               id: '',
               name: '',
             },
-            clientMobileList: [],
             userList: [],
       }
     },
-    computed: {
-      myClients() {
-        return this.clientMobileList.map(client => ({value: client.id, text: client.name}))
-      },
-      myUsers() {
-        return this.userList.map(user => ({value: user.id, text: user.name}))
-      }
-    },
+    // computed: {
+    //   myClients() {
+    //     return this.clientMobileList.map(client => ({value: client.id, text: client.name}))
+    //   },
+    //   myUsers() {
+    //     return this.userList.map(user => ({value: user.id, text: user.name}))
+    //   }
+    // },
     mounted() {
       this.init()
       this.getClientMobile()
@@ -113,14 +104,14 @@
       getClientMobile() {
         this.loader = true
   
-        this.$axios.get('clientMobile/allClientMobiles', {
+        this.$axios.get(`clientMobile/clientMobileDetails/${this.id}`, {
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'x-access-token': this.token},
         }, {withCredentials: true}).then((response) => {
           console.log(response);
-          return this.clientMobileList = response.data
+          return this.client = response.data
         }).catch((error) => {
           console.log(error)
         }).finally(() => {
@@ -130,20 +121,24 @@
       getUsers() {
       this.loader = true
 
-      this.$axios.get('auth/users', {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'x-access-token': this.token},
-      }, {withCredentials: true}).then((response) => {
-        return this.userList = response.data
-      }).catch((error) => {
-        console.log(error)
-      }).finally(() => {
+      this.$axios.get('auth/userDetails', {
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'x-access-token': this.token},
+            }, {withCredentials: true}).then((response) => {
+              console.log(response)
+              console.log(this.currentUser)
+              return this.currentUser = response.data.data
+            }).catch((error) => {
+              console.log(error)
+            }).finally(() => {
         this.loader = false
       })
     },
       submitForm() {
+        this.form.clientmobile_id = this.id
+        this.form.user_id = this.currentUser.id
         this.$axios.post('contact/addContact', this.form, {
           headers: {
             'Content-Type': 'application/json',
@@ -157,11 +152,12 @@
             name: 'contact-listContact'
           })
         }).catch((error) => {
-          console.log(error + 'Rien par ici' )
+          console.log(error)
         })
       },
       init() {
         this.token = this.$auth.strategy.token.get()
+        this.id = this.$route.params.id
       },
       cancel() {
         this.$router.push({

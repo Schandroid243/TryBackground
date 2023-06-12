@@ -35,6 +35,7 @@
               </b-row>
             </b-card>
             <b-button-group class="mt-4 d-flex align-items-center justify-content-sm-end">
+              <b-spinner v-if="loader" variant="primary"></b-spinner>
         <b-button @click="submitForm"
         class="btn-info text-white col-md-4 mx-2 shadow">
         Enregistrer
@@ -51,6 +52,7 @@
       name: 'User_add',
       data() {
         return {
+          loader: false,
           form: {
             name: '',
             email: '',
@@ -64,6 +66,7 @@
       },
       methods: {
         submitForm() {
+          this.loaader = true
           this.$axios.post('clientMobile/signUp', this.form, {
             headers: {
               'Content-Type': 'application/json',
@@ -76,7 +79,10 @@
             console.log(response)
           }).catch((error) => {
             console.log(error)
-          })
+            this.loader = false
+          }).finally(() => {
+            this.loader = false
+          });
           this.$router.push({
             name: 'clientMobile-listClientMobile'
           })

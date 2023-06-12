@@ -55,7 +55,7 @@
                   <h6 v-if="contact.paymentStatus" class="text-info mt-2 mb-2">Status : activate</h6>
                   <h6 v-else  class="text-danger mt-2 mb-2">Status : desactivate</h6>
                   <h6 class="text-secondary mx-2 mb-2"><em>Votre abonnement expire le :</em></h6>
-                  <h6 class="text-secondary mt-2 mb-2">{{ contact.expirationDate }}</h6>
+                  <h6 class="text-danger mt-2 mb-2">{{ date }} </h6>
                 </div>
                 <div v-if = "profile.expirationDate !== Date.now">
                   <b-button @click="activation(profile.id)" class="btn text-white">Activate</b-button>
@@ -72,7 +72,10 @@
           </b-row>
           <b-modal id="modal-1" title="Message" ok-only hide-header-close>
                   <p class="my-4">Votre profile a été activé</p>
-                </b-modal>
+          </b-modal>
+          <b-modal id="modal-2" title="Message" ok-only hide-header-close>
+                  <p class="my-4">Cette carte est encours de validité !</p>
+          </b-modal>
         </b-container>
        </b-col>
       </b-row>
@@ -85,6 +88,8 @@ import { Console } from 'console'
     data() {
       return {
         id: '',
+        date: '',
+        time: '',
         profile: {
           contact_id: '',
           title: '',
@@ -167,25 +172,19 @@ import { Console } from 'console'
           withCredentials: true
         }).then((response) => {
           console.log(response)
-          this.makeToast()
-
+          this.$bvModal.show('modal-1')
           this.$router.go(0)
 
         }).catch((error) => {
           console.log(error)
-          this.$bvModal.show('modal-1')
+          this.$bvModal.show('modal-2')
+          
           this.info = 'vous êtes hors-connexion'
         }).finally(() => {
           this.loader = false
         })
       },
-      makeToast(append = false) {
-        this.$bvToast.toast('Votre profile a été activé', {
-          title: 'Message',
-          autoHideDelay: 5000,
-          appendToast: append,
-        })
-      },
+      
       getContact() {
         this.loader = true
         this.$axios.get(`contact/contactDetail/${this.id}`, {
@@ -198,6 +197,10 @@ import { Console } from 'console'
           withCredentials: true
         }).then((response) => {
           this.contact = response.data
+
+          var time = Date.parse(this.contact.expirationDate);
+          this.date = new Date(time).toUTCString();
+          
         }).catch((error) => {
           console.log(error)
           this.info = 'vous êtes hors-connexion'

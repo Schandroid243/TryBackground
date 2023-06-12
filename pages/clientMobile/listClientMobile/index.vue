@@ -22,8 +22,9 @@
                 <input size="md" class="form-control" type="search" v-model="filter"
                   placeholder="Recherchez client...">
               </form>
-              <template>
-                <b-container v-if="loader" class="mt-4 mb-4">
+          </b-row>
+          <b-row v-if="loader">
+            <b-container  class="mt-4 mb-4">
                 <b-row>
                 <b-card class="col-md-12" height="100">
                   <b-skeleton animation="throb" width="85%"></b-skeleton>
@@ -32,35 +33,52 @@
                 </b-card>
                 </b-row>
               </b-container>
-              
-            <b-table v-else class="table-light shadow text-left" striped hover :items="clientMobileList" :fields="fields"
-            :filter="filter" :per-page="perPage" :current-page="currentPage" small>
-              <col v-for="(client, i) in clientMobileList" :key="i">
-                <template #cell(Nom)="client"> {{client.item.name}} </template>
-                <template #cell(Email)="client"> {{client.item.email}} </template>
+          </b-row>
+          <b-row v-else>
+            <template>
+                  <b-table  class="table-light shadow text-left" striped hover :items="clientMobileList" :fields="fields"
+                    :filter="filter" :per-page="perPage" :current-page="currentPage" small>
+                      <col v-for="(client, i) in clientMobileList" :key="i">
+                        <template #cell(Nom)="client"> {{client.item.name}} </template>
+                        <template #cell(Email)="client"> {{client.item.email}} </template>
+          
+                        <template #cell(Action)="client">
+                          <b-row class="d-flex col-md-12 align-items-center justify-content-start p-0" style="gap:10px">
+                            <div>
+                              <b-dropdown id="dropdown-action" text="actions" class="m-2">
+                                <b-dropdown-item-button class="">
+                                  <nuxt-link class="d-flex text-decoration-none align-items-center justify-content-center" :to=" {name: 'clientMobile-edit-id', params: {id: client.item.id}}">
+                                    <b-icon icon="pencil-square"></b-icon>
+                                    <p class="m-2">Editer</p>
+                                  </nuxt-link>
+                                </b-dropdown-item-button>
   
-                <template #cell(Action)="client">
-                  <b-row class="d-flex col-md-12 align-items-center justify-content-start" style="gap:10px">
-                    <nuxt-link :to=" {name: 'clientMobile-edit-id', params: {id: client.item.id}}">
-                      <b-button variant="secondary" >
-                       <b-icon icon="pencil-square"></b-icon>
-                      </b-button>
-                    </nuxt-link>
-                    <nuxt-link :to=" {name: 'clientMobile-delete-id', params: {id: client.item.id}}">
-                      <b-button variant="danger" >
-                       <b-icon icon="eraser-fill"></b-icon>
-                      </b-button>
-                    </nuxt-link>
-                  </b-row>
+                                <b-dropdown-item-button class="">
+                                  <nuxt-link class="d-flex text-decoration-none align-items-center justify-content-center" :to=" {name: 'clientMobile-delete-id', params: {id: client.item.id}}">
+                                    <b-icon icon="eraser-fill"></b-icon>
+                                    <p class="m-2">Effacer</p>
+                                  </nuxt-link>
+                                </b-dropdown-item-button>
+                                <b-dropdown-divider></b-dropdown-divider>
+                                <b-dropdown-item-button class="">
+                                  <nuxt-link class="d-flex text-decoration-none align-items-center justify-content-center" :to=" {name: 'contact-add-id', params: {id: client.item.id}}">
+                                    <b-icon icon="person-fill"></b-icon>
+                                    <p class="m-2">Créer contact</p>
+                                  </nuxt-link>
+                                </b-dropdown-item-button>
+                                
+                              </b-dropdown>
+                            </div>
+                          </b-row>
+                        </template>
+                    </b-table>
                 </template>
-            </b-table>
-            <div class="overflow-auto">
+          </b-row>   
+        </b-container>
+        <div class="overflow-auto">
                   <b-pagination v-model="currentPage" pills :total-rows="rows" :per-page="perPage"
                     aria-controls="table"></b-pagination>
                 </div>
-              </template>
-          </b-row>
-        </b-container>
       </div>
       </b-row>
     </div>
@@ -76,7 +94,15 @@
         perPage: 10,
         currentPage: 1,
         filter: '',
-        fields: ['   ','name', 'email', 'Action'],
+        fields: [
+          '   ', 
+          {
+          key: 'name',
+          sortable: true,
+        }, 
+        'email', 
+        'Action'
+      ],
         clientMobileList: [],
         token: '',
         refreshToken: '',
