@@ -80,7 +80,7 @@
         currentPage: 1,
 
         filter: '',
-        fields: ['  ','first_name', 'name', 'last_name','status', 'actions'],
+        fields: ['  ', { key: 'first_name', sortable: true}, 'name', 'last_name','status', 'actions'],
         listContact: [],
         listProfile: [],
 
