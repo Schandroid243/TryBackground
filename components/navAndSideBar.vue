@@ -6,9 +6,11 @@
           <b-navbar-brand class="px-2">
             <b-container class="d-flex" style="gap:20px">
               <nuxt-link class="text-decoration-none d-flex px-0" to="/home">
-                <h2 class="text-white">Daurecard</h2>
+                <b-img src="~/assets/daurecardAPP.png" width="55" height="40"></b-img>
+                <h3 class="text-white mx-2">DaureCard</h3>
+                <div class="border-right mx-4"></div>
               </nuxt-link>
-              <b-button @click="checkSideBar()">
+              <b-button class="btn mx-4" @click="checkSideBar()">
                 <b-icon icon="menu-app"></b-icon>
               </b-button>
             </b-container>

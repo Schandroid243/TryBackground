@@ -24,7 +24,7 @@
               </form>
           </b-row>
           <b-row v-if="loader">
-            <b-container  class="mt-4 mb-4">
+            <b-container fluid class="mt-4 mb-4">
                 <b-row>
                 <b-card class="col-md-12" height="100">
                   <b-skeleton animation="throb" width="85%"></b-skeleton>

@@ -31,7 +31,7 @@
             <b-container class="align-items-center justify-content-center mt-4">
             <b-row class="d-flex justify-content-center align-items-center text-center">
               <b-col>
-                <img src="~/assets/profile.jpeg" style="width:80%; height:100%">
+                <b-img src="~/assets/profile.jpeg" rounded="circle" alt="image-rounded" style="width:80%; height:100%"></b-img>
               </b-col>
               <b-col>
                 <div>

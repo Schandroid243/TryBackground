@@ -2,25 +2,27 @@
   <div>
    <b-container fluid class="mt-4 p-0">
    <b-row class="align-items-center justify-content-center">
-     <b-col class="mt-4 p-0 col-md-12 col-xl-12 d-flex" style="justify-content: space-between;
+     <b-col class="mt-4 p-0 col-md-12 col-xl-12" style="justify-content: space-between;
             padding-top:15px">
 
         <div class="col-md-12 col-xl-12 col-sm-12">
-              <b-card class="shadow col-md-12 col-xl-12 col-sm-12" style=" height:100px">
-                <b-container class=" text-info text-center d-flex align-items-center text-info"
-                style="font-size:20pt; justify-content: space-between;">
-                <b-icon icon="people-fill" variant="info" width="40" height="40"></b-icon>
-                <h5>Contacts enregistrés</h5>
+              <b-card class="shadow col-md-12 col-xl-12 col-sm-12 mb-4" style=" height:auto">
+                <b-row class=" text-info text-center d-flex justify-content-between align-items-center  text-info"
+                style="font-size:20pt;">
+                <b-icon icon="people-fill" variant="info" width="120" height="100"></b-icon>
+                <h5 style="font-size: 2rem;">Contacts enregistrés</h5>
                 <nuxt-link class="text-decoration-none" :to="{name: 'contact-listContact'}">
+
                 <b-spinner v-if="loader" label="large spinner" variant="info"></b-spinner>
-                    <b-badge v-else variant="info" pill>
-                      {{contactNbr}}
-                    </b-badge>
-                  </nuxt-link>
+                <b-container class="bg-info shadow" v-else style="border-radius: 100%; width: 80px; height: 80px;">
+                  <h2 class="text-white text-center pt-3">{{contactNbr}}</h2>
                 </b-container>
+                    
+                  </nuxt-link>
+                </b-row>
               </b-card>
                 <b-carousel id="carousel-fade"
-                class="text-center"
+                class="text-center mb-4"
                   style="text-shadow: 0px 0px 2px #000;"
                   fade indicators
                   img-width="1080"
@@ -45,14 +47,14 @@
                 </b-carousel-slide>
               </b-carousel>
               </div>
-
      </b-col>
    </b-row>
+
    <b-row class="align-items-center justify-content-center">
      <b-col class="col-md-12 col-xl-12 col-sm-12 ">
-       <b-card style="height:68%;">
-         <img src="~/assets/aurtechDaurecard.jpg" style="height:100%; width:100%">
-       </b-card>
+       
+         <b-img src="~/assets/daurecardFond.jpg" style="height:100%; width:100%"></b-img>
+      
      </b-col>
    </b-row>
    </b-container>
