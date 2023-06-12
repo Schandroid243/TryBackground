@@ -2,7 +2,7 @@
   <div class="mt-4" style="padding-top:15px">
       <b-row class="align-items-center justify-content-center">
         <div class=" col-md-9 col-xl-9 col-lg-9 text-dark">
-          <b-container class="mt-4 mb-4">
+          <b-container fluid class="mt-4 mb-4 p-0">
             <h3 class="text-white">Editez contact</h3>
           </b-container>
           <b-container fluid v-if="loader" class="mt-4 mb-4">
@@ -35,13 +35,13 @@
             </b-col>
           </b-row>
           </b-card>
-          <b-container class="d-flex mt-4 mb-4  d-flex align-items-center justify-content-md-end">
+          <b-button-group class="d-flex mt-4 mb-4  d-flex align-items-center justify-content-md-end">
             <b-button @click="submitForm" class="btn-secondary text-white col-md-4 mx-2">
               <b-icon icon="save-fill" width="11px" height="11px"></b-icon>
               Enregistrer
             </b-button>
             <b-button @click="cancel" class="btn-danger text-white col-md-4 mx-2">Annuler</b-button>
-          </b-container>
+          </b-button-group>
         </div>
       </b-row>
   </div>

@@ -24,14 +24,17 @@
             </b-card>
           </b-row>
           <b-row v-else class="d-flex col-md-12" style="justify-content:space-around" >
-            <div class="col-md-4 mt-1" v-for="(profile, i) in listProfile" :key="i">
+            <div class="col-md-6 mt-1" v-for="(profile, i) in listProfile" :key="i">
             <b-card
             class="shadow"
-            style=" width:100%; height:100%">
+            style=" width:100%; height:100%; border-radius: 20px;">
             <b-container class="align-items-center justify-content-center mt-4">
             <b-row class="d-flex justify-content-center align-items-center text-center">
-              <img src="~/assets/profile.jpeg" style="width:35%; height:100%">
-              <div>
+              <b-col>
+                <img src="~/assets/profile.jpeg" style="width:80%; height:100%">
+              </b-col>
+              <b-col>
+                <div>
                 <h5 class="text-dark mt-2 mb-2"> {{profile.organization}} </h5>
                 <h6 class="text-secondary mt-2 mb-2"> {{profile.title}} </h6>
                 <b-container class="d-flex" style="justify-content: space-around;">
@@ -48,13 +51,18 @@
                     <b-icon icon="eraser-fill"></b-icon>
                   </nuxt-link>
                 </b-container>
-                <div v-if="profile.status">
-                  <h6 class="text-danger mt-2 mb-2">validée</h6>
+                <div>
+                  <h6 v-if="contact.paymentStatus" class="text-info mt-2 mb-2">Status : activate</h6>
+                  <h6 v-else  class="text-danger mt-2 mb-2">Status : desactivate</h6>
+                  <h6 class="text-secondary mx-2 mb-2"><em>Votre abonnement expire le :</em></h6>
+                  <h6 class="text-danger mt-2 mb-2">{{ date }} </h6>
                 </div>
-                <div v-else>
-                  <h6  class="text-danger mt-2 mb-2">Enregistrée</h6>
+                <div v-if = "profile.expirationDate !== Date.now">
+                  <b-button @click="activation(profile.id)" class="btn text-white">Activate</b-button>
                 </div>
               </div>
+              </b-col>
+              
             </b-row>
             </b-container>
               </b-card>
@@ -62,6 +70,12 @@
           </b-row>
           </b-col>
           </b-row>
+          <b-modal id="modal-1" title="Message" ok-only hide-header-close>
+                  <p class="my-4">Votre profile a été activé</p>
+          </b-modal>
+          <b-modal id="modal-2" title="Message" ok-only hide-header-close>
+                  <p class="my-4">Cette carte est encours de validité !</p>
+          </b-modal>
         </b-container>
        </b-col>
       </b-row>
@@ -69,21 +83,27 @@
 </template>
 
 <script>
+import { Console } from 'console'
   export default {
     data() {
       return {
         id: '',
+        date: '',
+        time: '',
         profile: {
           contact_id: '',
           title: '',
           organization: '',
-          status: false
+          status: false,
+          expirationDate: '',
         },
         contact: {
           id: '',
           name: '',
           firstName: '',
-          lastName: ''
+          lastName: '',
+          paymentStatus: true,
+          expirationDate: '',
         },
         loader: false,
 
@@ -126,6 +146,7 @@
         }, {
           withCredentials: true
         }).then((response) => {
+
           this.dataProfile = response.data
           this.dataProfile.forEach((element) => {
             if(element.contact_id == this.id){
@@ -139,6 +160,30 @@
           this.loader = false
         })
       },
+      activation() {
+        this.$axios.put(`contact/activateContact/${this.id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'x-access-token': this.token
+          },
+        }, {
+          withCredentials: true
+        }).then((response) => {
+          console.log(response)
+          this.$bvModal.show('modal-1')
+          this.$router.go(0)
+
+        }).catch((error) => {
+          console.log(error)
+          this.$bvModal.show('modal-2')
+          
+          this.info = 'vous êtes hors-connexion'
+        }).finally(() => {
+          this.loader = false
+        })
+      },
+      
       getContact() {
         this.loader = true
         this.$axios.get(`contact/contactDetail/${this.id}`, {
@@ -152,6 +197,9 @@
         }).then((response) => {
           this.contact = response.data
 
+          var time = Date.parse(this.contact.expirationDate);
+          this.date = new Date(time).toUTCString();
+          
         }).catch((error) => {
           this.info = 'vous êtes hors-connexion'
         }).finally(() => {

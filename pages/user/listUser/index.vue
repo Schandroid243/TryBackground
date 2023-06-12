@@ -18,30 +18,32 @@
               </b-row>
             </b-col>
 
-          <b-table v-else class="table-light shadow text-center" striped hover :items="userList" :fields="fields">
+          <b-table v-else class="table-light shadow text-left" striped hover :items="userList" :fields="fields">
             <col v-for="(user, i) in userList" :key="i">
               <template #cell(Nom)="user"> {{user.item.name}} </template>
               <template #cell(Email)="user"> {{user.item.email}} </template>
 
               <template #cell(Action)="user">
-                <b-row class="d-flex col-md-12 align-items-center justify-content-center" style="gap:10px">
-                  <nuxt-link :to=" {name: 'user-edit-id', params: {id: user.item.id}}">
-                    <b-button v-if="currentUser == user.item.email"
-                      variant="secondary" >
-                     <b-icon icon="pencil-square"></b-icon>
-                    </b-button>
-
-                  </nuxt-link>
-                  <nuxt-link :to=" {name: 'user-delete-id', params: {id: user.item.id}}">
-                    <b-button v-if="checkUser"
-                      variant="danger" >
-                     <b-icon icon="eraser-fill"></b-icon>
-                    </b-button>
-                  </nuxt-link>
-                </b-row>
-
-
-
+              
+                  <b-row class="d-flex col-md-12 align-items-center justify-content-start p-0" style="gap:10px">
+                            <div>
+                              <b-dropdown id="dropdown-action" text="actions" class="m-2">
+                                <b-dropdown-item-button class="">
+                                  <nuxt-link class="d-flex text-decoration-none align-items-center justify-content-center" :to=" {name: 'user-edit-id', params: {id: user.item.id}}">
+                                    <b-icon icon="pencil-square"></b-icon>
+                                    <p class="m-2">Editer</p>
+                                  </nuxt-link>
+                                </b-dropdown-item-button>
+  
+                                <b-dropdown-item-button class="">
+                                  <nuxt-link class="d-flex text-decoration-none align-items-center justify-content-center" :to=" {name: 'user-delete-id', params: {id: user.item.id}}">
+                                    <b-icon icon="eraser-fill"></b-icon>
+                                    <p class="m-2">Effacer</p>
+                                  </nuxt-link>
+                                </b-dropdown-item-button>
+                              </b-dropdown>
+                            </div>
+                          </b-row>
               </template>
           </b-table>
         </b-row>
@@ -59,7 +61,7 @@ export default {
 
   data() {
     return {
-      fields: ['name', 'email', 'Action'],
+      fields: [' ','name', 'email', 'Action'],
       userList: [],
       token: '',
       refreshToken: '',
