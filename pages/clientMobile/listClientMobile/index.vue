@@ -7,7 +7,7 @@
           </b-container>
           <div class="d-flex"
                style="justify-content:space-between;
-                padding-top: 15px;">
+                  padding-top: 15px;">
             <h4 class="text-white">Liste des clients mobiles</h4>
             <nuxt-link class="text-decoration-none" :to="{name: 'clientMobile-add'}">
               <b-button class="btn btn-secondary shadow">
