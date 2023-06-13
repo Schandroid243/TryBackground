@@ -40,5 +40,8 @@
     "jest": "^27.4.4",
     "prettier": "^2.5.1",
     "vue-jest": "^3.0.4"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
