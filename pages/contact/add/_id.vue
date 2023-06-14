@@ -1,9 +1,9 @@
 <template>
-  <div class="mt-4" style="padding-top:17px">
+  <div class="mt-4" style="padding-top:15px">
       <b-row class="align-items-center justify-content-center">
         <div class=" col-md-9 col-xl-9 col-lg-9 text-dark">
           <b-container class="mt-4 mb-4">
-            <h3 class="text-white">Créer un contact pour le client :</h3>
+            <h3 class="text-white">Créer un nouveau contact pour le client :</h3>
           </b-container>
           <b-container fluid v-if="loader" class="mt-4 mb-4">
             <b-row>
