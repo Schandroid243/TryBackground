@@ -35,10 +35,11 @@
               </b-row>
             </b-card>
             <b-button-group class="mt-4 d-flex align-items-center justify-content-sm-end">
-        <b-button @click="submitForm"
-        class="btn-info text-white col-md-4 mx-2 shadow">
-        Enregistrer
-        </b-button>
+              <b-spinner v-if="loader" variant="primary"></b-spinner>
+              <b-button @click="submitForm"
+              class="btn-info text-white col-md-4 mx-2 shadow">
+              Enregistrer
+              </b-button>
         <b-button @click="cancel" class="btn-danger text-white col-md-4 mx-2 shadow">Annuler</b-button>
       </b-button-group>
           </div>

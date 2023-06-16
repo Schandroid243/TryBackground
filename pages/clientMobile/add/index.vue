@@ -26,22 +26,35 @@
                   <b-form-group>
                     <b-form-input v-model="form.name" class="mt-1 mb-1" id="name" placeholder="Entrer votre nom">
                     </b-form-input>
-                    <b-form-input v-model="form.email" class="mt-1 mb-1" id="LastName"
+                    <b-form-input type="email" v-model="form.email" class="mt-1 mb-1" id="email"
                       placeholder="Entrez votre email"></b-form-input>
-                      <b-form-input v-model="form.password" class="mt-1 mb-1" id="LastName"
+                      <b-form-input type="password" v-model="form.password" class="mt-1 mb-1" id="password"
                       placeholder="Entrez votre mot de passe"></b-form-input>
+                      <b-form-input
+                        id="input-live"
+                        type="password"
+                        v-model="verifyPassword"
+                        :state="nameState"
+                        aria-describedby="input-live-help input-live-feedback"
+                        placeholder="Entrez à nouveau votre mot de passe"
+                        trim >
+                      ></b-form-input>
                   </b-form-group>
                 </b-col>
               </b-row>
             </b-card>
             <b-button-group class="mt-4 d-flex align-items-center justify-content-sm-end">
               <b-spinner v-if="loader" variant="primary"></b-spinner>
-        <b-button @click="submitForm"
-        class="btn-info text-white col-md-4 mx-2 shadow">
-        Enregistrer
-        </b-button>
-        <b-button @click="cancel" class="btn-danger text-white col-md-4 mx-2 shadow">Annuler</b-button>
+                <b-button @click="submitForm"
+                class="btn-info text-white col-md-4 mx-2 shadow">
+                Enregistrer
+                </b-button>
+            <b-button @click="cancel" class="btn-danger text-white col-md-4 mx-2 shadow">Annuler</b-button>
       </b-button-group>
+
+      <b-modal id="modal1" title="Message" ok-only hide-header-close>
+                  <p class="my-4 danger">Une erreur est survenue, veuillez réessayer !</p>
+          </b-modal>
           </div>
         </b-row>
     </div>
@@ -52,6 +65,8 @@
       name: 'User_add',
       data() {
         return {
+          info: '',
+          verifyPassword:'',
           loader: false,
           form: {
             name: '',
@@ -61,12 +76,17 @@
          
         }
       },
+      computed: {
+      nameState() {
+        return this.form.password == this.verifyPassword ? true : false
+      }
+    },
       mounted() {
         this.init()
       },
       methods: {
         submitForm() {
-          this.loaader = true
+          this.loader = true
           this.$axios.post('clientMobile/signUp', this.form, {
             headers: {
               'Content-Type': 'application/json',
@@ -76,13 +96,26 @@
           }, {
             withCredentials: true
           }).then((response) => {
-            console.log(response)
+            this.$bvToast.toast(`Le client ${this.form.name} a été créé avec succès !`, {
+              title: 'Message Admin',
+              variant: 'Primary',
+              autoHideDelay: 5000,
+              appendToast: true,
+        })
+            
           }).catch((error) => {
-            console.log(error)
             this.loader = false
+            this.info = 'Veuillez réessayer !'
+            this.$bvToast.toast('Une erreur est survenue, veuillez réessayer !', {
+              title: 'Message Admin',
+              variant: 'danger',
+              autoHideDelay: 5000,
+              appendToast: true });
+          
           }).finally(() => {
             this.loader = false
           });
+        
           this.$router.push({
             name: 'clientMobile-listClientMobile'
           })
@@ -92,7 +125,8 @@
         },
         cancel() {
           this.$router.go(-1);
-        }
+        },
+       
       }
     }
   

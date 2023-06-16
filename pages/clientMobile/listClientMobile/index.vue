@@ -91,6 +91,7 @@
   
     data() {
       return {
+        info: '',
         perPage: 10,
         currentPage: 1,
         filter: '',
@@ -113,12 +114,10 @@
       },
       mounted () {
       this.init()
-      this.getClientMobileDetail()
       this.getClientMobile()
     },
     created() {
       this.init()
-      this.getClientMobileDetail()
       this.getClientMobile()
   
     },
@@ -143,30 +142,12 @@
           console.log(response);
           return this.clientMobileList = response.data
         }).catch((error) => {
-          console.log(error)
+          this.info = 'Un problème est survenu, veuillez réessayer !'
         }).finally(() => {
           this.loader = false
         })
       },
-      getClientMobileDetail() {
-          this.$axios.get('clientMobile/clientMobileDetails', {
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-              'x-access-token': this.token},
-          }, {withCredentials: true}).then((response) => {
-            console.log(response)
-            // this.currentUser = response.data.data.email
-            // if(response.data.data.role == 'Admin') {
-            //   this.checkUser = true
-            // } else {
-            //   this.checkUser = false
-            // }
-            // console.log(this.currentUser)
-          }).catch((error) => {
-            console.log(error)
-          })
-        },
+     
   
     }
   }

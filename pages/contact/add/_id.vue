@@ -38,10 +38,11 @@
             </b-row>
           </b-card>
           <b-button-group class="mt-4 d-flex align-items-center justify-content-sm-end">
-      <b-button type="submit"
-      class="btn-info text-white col-md-4 mx-2 shadow">
-      Enregistrer
-      </b-button>
+            <b-spinner v-if="loader" variant="primary"></b-spinner>
+            <b-button type="submit"
+            class="btn-info text-white col-md-4 mx-2 shadow">
+            Enregistrer
+            </b-button>
       <b-button @click="cancel" class="btn-danger text-white col-md-4 mx-2 shadow">Annuler</b-button>
     </b-button-group>
             </form>
@@ -148,11 +149,23 @@
         }, {
           withCredentials: true
         }).then((response) => {
+          this.$bvToast.toast(`le contact ${this.form.firstName} a été créé avec succès !`, {
+              title: 'Message Admin',
+              variant: 'primary',
+              autoHideDelay: 5000,
+              appendToast: true });
+
           this.$router.push({
             name: 'contact-listContact'
+
           })
         }).catch((error) => {
-          
+          this.$bvToast.toast('une erreur est survenue, veuillez réessayer !', {
+              title: 'Message Admin',
+              variant: 'danger',
+              autoHideDelay: 5000,
+              appendToast: true });
+
         })
       },
       init() {

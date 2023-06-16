@@ -56,7 +56,11 @@
                 'Access-Control-Allow-Origin': '*',
                 'x-access-token': this.token},
             }, {withCredentials: true}).then((response) => {
-              console.log(response.data)
+              this.$bvToast.toast(`le client ${this.form.name} a été supprimé avec succès !`, {
+              title: 'Message Admin',
+              variant: 'danger',
+              autoHideDelay: 5000,
+              appendToast: true });
   
             })
             this.$router.push({

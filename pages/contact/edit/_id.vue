@@ -36,6 +36,7 @@
           </b-row>
           </b-card>
           <b-button-group class="d-flex mt-4 mb-4  d-flex align-items-center justify-content-md-end">
+            <b-spinner v-if="loader" variant="primary"></b-spinner>
             <b-button @click="submitForm" class="btn-secondary text-white col-md-4 mx-2">
               <b-icon icon="save-fill" width="11px" height="11px"></b-icon>
               Enregistrer
@@ -105,6 +106,12 @@
         }, {
           withCredentials: true
         }).then((response) => {
+          this.$bvToast.toast(`le contact ${this.form.firstName} a été modifié avec succès !`, {
+              title: 'Message Admin',
+              variant: 'primary',
+              autoHideDelay: 5000,
+              appendToast: true });
+
           this.$router.go(-1)
         }).catch((error) => {
         })
